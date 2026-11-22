@@ -1,0 +1,3101 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> Ayutthaya Life — ชีวิตในอยุธยา </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            warm: {
+              bg: '#F7F3EB',
+              card: '#FFFDF9',
+              tint: '#F1ECE1',
+              sand: '#E4DAC8',
+              ink: '#2A2622',
+              sub: '#645C52',
+              sage: '#4F7765',
+              sageSoft: '#E7EFEA',
+              gold: '#B8862D',
+              goldSoft: '#F6EEDB',
+              slate: '#4A6B82',
+              slateSoft: '#E6EEF4',
+              rose: '#B55D51',
+              roseSoft: '#F7E8E6',
+            },
+          },
+          fontFamily: {
+            sans: ['"IBM Plex Sans Thai"', 'system-ui', 'sans-serif'],
+            serif: ['"Noto Serif Thai"', 'Georgia', 'serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #F7F3EB;
+      color: #2A2622;
+      font-family: 'IBM Plex Sans Thai', system-ui, sans-serif;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 12% 8%, rgba(184, 134, 45, 0.07) 0%, transparent 42%),
+        radial-gradient(circle at 88% 14%, rgba(79, 119, 101, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 100%, rgba(74, 107, 130, 0.05) 0%, transparent 50%);
+    }
+
+    .cozy-card {
+      background-color: #FFFDF9;
+      border: 1px solid #E4DAC8;
+      box-shadow: 0 6px 20px -10px rgba(42, 38, 34, 0.12);
+    }
+
+    .cozy-inset {
+      background-color: #F1ECE1;
+      border: 1px solid #E4DAC8;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #F1ECE1;
+      border-radius: 999px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #CFC3AE;
+      border-radius: 999px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #B8A88D;
+    }
+
+    @keyframes modalPop {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-pop {
+      animation: modalPop 0.18s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased selection:bg-warm-sage/20 selection:text-warm-ink">
+  <!-- แถบแจ้งเตือนมุมขวาบน -->
+  <div
+    id="toastContainer"
+    class="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-[92vw] sm:max-w-sm pointer-events-none"
+    aria-live="polite"
+  ></div>
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-4">
+    <!-- ส่วนหัวเกมและแถบควบคุมหลัก -->
+    <header class="cozy-card rounded-3xl p-4 sm:p-5">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div class="space-y-1.5">
+          <div class="flex flex-wrap items-center gap-2 text-xs font-medium text-warm-sub">
+            <span class="px-2.5 py-0.5 rounded-full bg-warm-sageSoft text-warm-sage font-semibold">
+              ยุคกลางกรุงศรีอยุธยา (พ.ศ. ๒๐๓๑–๒๒๓๑)
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full bg-warm-goldSoft text-warm-gold font-semibold">
+              สุ่มเกิดใหม่ • เริ่มต้น ๐ ปี • ๐ เบี้ย
+            </span>
+            <span id="eraBadge" class="px-2.5 py-0.5 rounded-full bg-warm-slateSoft text-warm-slate font-semibold">
+              สมัยรัชกาล
+            </span>
+          </div>
+          <h1 class="font-serif text-2xl sm:text-3xl font-bold text-warm-ink tracking-tight">
+            ชีวิตในยุคอยุธยา
+          </h1>
+          <p id="headerSubtitle" class="text-xs sm:text-sm text-warm-sub">
+            สุ่มชะตาชีวิตในกรุงศรีอยุธยาแบบไม่เลือกเกิด เวลาเดิน ๑ วันต่อ ๑ วินาทีที่ความเร็ว ×๑ • สถานการณ์สุ่มปีละไม่เกิน ๓ ครั้งและไม่ซ้ำตลอดชีวิต
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button
+            id="btnNewLife"
+            type="button"
+            class="px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold bg-warm-sage hover:bg-[#416454] text-white transition active:scale-[0.99] cursor-pointer"
+          >
+            สุ่มเกิดชีวิตใหม่
+          </button>
+          <button
+            id="btnSaveModal"
+            type="button"
+            class="px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold bg-warm-slate hover:bg-[#3d596d] text-white transition active:scale-[0.99] cursor-pointer"
+          >
+            บันทึก / โหลดชะตา
+          </button>
+          <button
+            id="btnSound"
+            type="button"
+            class="px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm font-semibold cozy-inset hover:bg-warm-sand/60 text-warm-ink transition cursor-pointer"
+          >
+            เสียง: เปิด
+          </button>
+        </div>
+      </div>
+
+      <!-- แถบปฏิทินสุริยคติ จันทรคติ ฤดูกาล และปุ่มควบคุมเวลา -->
+      <div class="mt-4 pt-4 border-t border-warm-sand flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 flex-1">
+          <div class="cozy-inset rounded-2xl px-3.5 py-2.5">
+            <div class="text-[11px] font-medium text-warm-sub">ปฏิทินสุริยคติและศักราช</div>
+            <div id="solarDateDisplay" class="text-sm sm:text-base font-bold text-warm-ink mt-0.5">—</div>
+            <div id="weekdayDisplay" class="text-xs text-warm-sub">—</div>
+          </div>
+
+          <div class="cozy-inset rounded-2xl px-3.5 py-2.5">
+            <div class="text-[11px] font-medium text-warm-sub">ปฏิทินจันทรคติไทย</div>
+            <div id="lunarDateDisplay" class="text-sm sm:text-base font-bold text-warm-slate mt-0.5">—</div>
+            <div id="yearlyEventQuotaDisplay" class="text-xs text-warm-sub">สถานการณ์สุ่มปีนี้: ๐ / ๓ ครั้ง</div>
+          </div>
+
+          <div class="cozy-inset rounded-2xl px-3.5 py-2.5">
+            <div class="text-[11px] font-medium text-warm-sub">ฤดูกาลตามเดือน (ผลต่อบ้านเมือง)</div>
+            <div id="seasonNameDisplay" class="text-sm sm:text-base font-bold text-warm-sage mt-0.5">—</div>
+            <div id="seasonEffectDisplay" class="text-xs text-warm-sub line-clamp-1">—</div>
+          </div>
+        </div>
+
+        <!-- ปุ่มควบคุมความเร็วและปุ่มข้ามเดือน/ข้ามปี -->
+        <div class="flex flex-col sm:flex-row xl:flex-col items-stretch sm:items-center xl:items-end gap-2">
+          <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="ความเร็วเวลา">
+            <button data-speed="0" type="button" class="speed-btn px-3 py-2 rounded-xl text-xs font-semibold border border-warm-sand transition cursor-pointer">
+              หยุด
+            </button>
+            <button data-speed="1" type="button" class="speed-btn px-3 py-2 rounded-xl text-xs font-semibold border border-warm-sand transition cursor-pointer">
+              ×๑ (๑ว./วิ.)
+            </button>
+            <button data-speed="2" type="button" class="speed-btn px-3 py-2 rounded-xl text-xs font-semibold border border-warm-sand transition cursor-pointer">
+              ×๒
+            </button>
+            <button data-speed="4" type="button" class="speed-btn px-3 py-2 rounded-xl text-xs font-semibold border border-warm-sand transition cursor-pointer">
+              ×๔
+            </button>
+            <button data-speed="10" type="button" class="speed-btn px-3 py-2 rounded-xl text-xs font-semibold border border-warm-sand transition cursor-pointer">
+              ×๑๐
+            </button>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-1.5">
+            <button
+              id="btnSkipLunarMonth"
+              type="button"
+              class="px-3 py-2 rounded-xl text-xs font-semibold bg-warm-goldSoft hover:bg-[#eedfb9] text-warm-ink border border-warm-gold/35 transition cursor-pointer"
+            >
+              ข้ามเดือนนี้ (จันทรคติ)
+            </button>
+            <button
+              id="btnSkipYear"
+              type="button"
+              class="px-3 py-2 rounded-xl text-xs font-semibold bg-warm-sageSoft hover:bg-[#d8e6de] text-warm-sage border border-warm-sage/30 transition cursor-pointer"
+            >
+              ข้ามปีนี้
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- โครงสร้างหลัก ๓ คอลัมน์ (ปรับเป็นคอลัมน์เดียวบนมือถือ) -->
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+      <!-- คอลัมน์ซ้าย: ตัวตน บุพการี ทรัพย์สิน และกรมกอง -->
+      <section class="lg:col-span-4 space-y-4">
+        <!-- บัตรข้อมูลตัวตนและสถานะ -->
+        <div class="cozy-card rounded-3xl p-4 sm:p-5 space-y-4">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span id="generationBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-warm-goldSoft text-warm-gold">
+                  รุ่นที่ ๑
+                </span>
+                <span id="classBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-warm-sageSoft text-warm-sage">
+                  ชนชั้น
+                </span>
+              </div>
+              <h2 id="charNameDisplay" class="font-serif text-xl sm:text-2xl font-bold text-warm-ink mt-1.5">
+                —
+              </h2>
+              <p id="charMetaDisplay" class="text-xs text-warm-sub mt-0.5">—</p>
+            </div>
+            <div class="text-right shrink-0">
+              <div class="text-[11px] text-warm-sub">อายุปัจจุบัน</div>
+              <div id="ageDisplay" class="text-lg font-bold text-warm-ink">๐ ปี</div>
+              <div id="ageSubDisplay" class="text-[11px] text-warm-sub">๐ เดือน ๐ วัน</div>
+            </div>
+          </div>
+          <!-- ทรัพย์สิน ศักดินา และสังกัด -->
+          <div class="grid grid-cols-2 gap-2.5">
+            <div class="cozy-inset rounded-2xl p-3">
+              <div class="text-[11px] text-warm-sub">ทรัพย์สินในมือ</div>
+              <div id="wealthDisplay" class="text-base font-bold text-warm-gold mt-0.5">๐ เบี้ย</div>
+              <div id="wealthEquivDisplay" class="text-[11px] text-warm-sub">เริ่มต้นที่ ๐ เบี้ย</div>
+            </div>
+            <div class="cozy-inset rounded-2xl p-3">
+              <div class="text-[11px] text-warm-sub">บรรดาศักดิ์และศักดินา</div>
+              <div id="rankDisplay" class="text-sm font-bold text-warm-ink mt-0.5 line-clamp-1">—</div>
+              <div id="sakdinaDisplay" class="text-[11px] text-warm-slate font-semibold">ศักดินา ๒๕ ไร่</div>
+            </div>
+          </div>
+
+          <div class="cozy-inset rounded-2xl p-3 space-y-1">
+            <div class="flex items-center justify-between text-[11px] text-warm-sub">
+              <span>กรมกอง / สายวิถีชีวิตปัจจุบัน</span>
+              <span id="deptStandingBadge" class="font-semibold text-warm-sage">ความดีความชอบ ๐</span>
+            </div>
+            <div id="deptNameDisplay" class="text-sm font-bold text-warm-ink">—</div>
+            <div id="chiefRelationDisplay" class="text-xs text-warm-sub">—</div>
+          </div>
+
+          <!-- แถบค่าพลังพื้นฐาน ๔ ด้าน -->
+          <div id="statsContainer" class="space-y-2.5 pt-1"></div>
+
+          <!-- ลักษณะนิสัยและสิ่งของ -->
+          <div class="space-y-2 pt-1 border-t border-warm-sand">
+            <div class="text-xs font-semibold text-warm-ink">ลักษณะติดตัวและสิ่งของสำคัญ</div>
+            <div id="traitsInventoryBox" class="flex flex-wrap gap-1.5 text-xs"></div>
+          </div>
+        </div>
+
+        <!-- บัตรข้อมูลบุพการีและครอบครัวเบื้องต้น -->
+        <div class="cozy-card rounded-3xl p-4 sm:p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif text-base sm:text-lg font-bold text-warm-ink">บุพการีและภูมิหลังกำเนิด</h3>
+            <span id="originQuarterBadge" class="text-[11px] font-medium text-warm-sub">ย่านที่พัก</span>
+          </div>
+          <div id="parentsBox" class="space-y-2.5 text-xs"></div>
+        </div>
+      </section>
+
+      <!-- คอลัมน์กลาง: สถานการณ์ปัจจุบัน กิจกรรมตามช่วงวัย และสมุดบันทึกชีวิต -->
+      <section class="lg:col-span-5 space-y-4">
+        <!-- กล่องสถานการณ์สำคัญ / คำแนะนำช่วงวัยต่ำกว่า ๓ ขวบ -->
+        <div id="situationBanner" class="cozy-card rounded-3xl p-4 sm:p-5 border-2 border-warm-gold/50 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <span id="situationTag" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-warm-goldSoft text-warm-gold">
+              ปฐมวัย (อายุต่ำกว่า ๓ ขวบ)
+            </span>
+            <span id="situationCounterBadge" class="text-xs text-warm-sub">ไม่ซ้ำตลอดชีวิต</span>
+          </div>
+          <h3 id="situationTitle" class="font-serif text-lg font-bold text-warm-ink">
+            ยังเยาว์วัยนักในอ้อมอกบุพการี
+          </h3>
+          <p id="situationDesc" class="text-xs sm:text-sm text-warm-sub leading-relaxed">
+            เมื่ออายุยังไม่ถึง ๓ ขวบ ร่างกายและสติปัญญายังเล็กเกินกว่าจะออกไปทำกิจการงานหรือเดินทางด้วยตนเองได้ จะกระทำได้เฉพาะเมื่อเกิดสถานการณ์สุ่มเฉพาะหน้า
+          </p>
+          <div id="situationActionsBox" class="space-y-2 pt-1"></div>
+        </div>
+
+        <!-- หมวดกิจกรรมอิสระ (ปลดล็อกเมื่ออายุ ๓ ปีขึ้นไป) -->
+        <div class="cozy-card rounded-3xl p-4 sm:p-5 space-y-3.5">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+            <div>
+              <h3 class="font-serif text-lg font-bold text-warm-ink">การดำเนินชีวิตและกิจวัตร</h3>
+              <p id="activityLockHint" class="text-xs text-warm-sub">
+                ปลดล็อกกิจกรรมอิสระเมื่ออายุครบ ๓ ขวบบริบูรณ์
+              </p>
+            </div>
+            <span id="cooldownBadge" class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-warm-tint text-warm-sub self-start sm:self-auto">
+              พร้อมดำเนินกิจ
+            </span>
+          </div>
+
+          <!-- แท็บหมวดกิจกรรม ๕ หมวด -->
+          <div id="categoryTabs" class="flex flex-wrap gap-1.5"></div>
+
+          <!-- รายการปุ่มกิจกรรม -->
+          <div id="activitiesList" class="space-y-2 max-h-[360px] overflow-y-auto pr-1 custom-scroll"></div>
+        </div>
+
+        <!-- สมุดบันทึกชีวิต -->
+        <div class="cozy-card rounded-3xl p-4 sm:p-5 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="font-serif text-lg font-bold text-warm-ink">สมุดบันทึกชะตาชีวิต</h3>
+            <div class="flex items-center gap-1 text-[11px]">
+              <button data-log-filter="all" type="button" class="log-filter-btn px-2.5 py-1 rounded-full font-semibold transition cursor-pointer">
+                ทั้งหมด
+              </button>
+              <button data-log-filter="event" type="button" class="log-filter-btn px-2.5 py-1 rounded-full font-semibold transition cursor-pointer">
+                เหตุการณ์
+              </button>
+              <button data-log-filter="milestone" type="button" class="log-filter-btn px-2.5 py-1 rounded-full font-semibold transition cursor-pointer">
+                สำคัญ
+              </button>
+            </div>
+          </div>
+          <div id="chronicleList" class="space-y-2 max-h-[320px] overflow-y-auto pr-1 custom-scroll text-xs"></div>
+        </div>
+      </section>
+
+      <!-- คอลัมน์ขวา: สายสัมพันธ์เฉพาะบุคคลที่รู้จักจริง + ทำเนียบกรมกองอยุธยา + ทายาทสืบตระกูล -->
+      <section class="lg:col-span-3 space-y-4">
+        <!-- ความสัมพันธ์เฉพาะกับคนที่รู้จักจริง -->
+        <div class="cozy-card rounded-3xl p-4 sm:p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif text-base sm:text-lg font-bold text-warm-ink">ผู้คนที่มีสายสัมพันธ์</h3>
+            <span id="knownCountBadge" class="text-[11px] font-semibold text-warm-slate">๐ คนที่รู้จัก</span>
+          </div>
+          <p class="text-[11px] text-warm-sub">
+            แสดงเฉพาะบุคคลที่คุณได้รู้จักหรือผูกพันจริงในชีวิต ไม่นับคนแปลกหน้าที่ยังไม่เคยพบพาน
+          </p>
+          <div id="knownPeopleList" class="space-y-2 max-h-[260px] overflow-y-auto pr-1 custom-scroll text-xs"></div>
+        </div>
+
+        <!-- ระบบครอบครัว บุตรธิดา และการสืบตระกูล -->
+        <div class="cozy-card rounded-3xl p-4 sm:p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif text-base sm:text-lg font-bold text-warm-ink">เรือนสกุลและทายาท</h3>
+            <span id="childrenCountBadge" class="text-[11px] font-semibold text-warm-sage">บุตร ๐ คน</span>
+          </div>
+          <div id="familyLineageBox" class="space-y-2 text-xs"></div>
+        </div>
+
+        <!-- ทำเนียบกรมกองราชการและวิถีชีวิตกรุงศรีอยุธยา -->
+        <div class="cozy-card rounded-3xl p-4 sm:p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif text-base sm:text-lg font-bold text-warm-ink">กรมกองกรุงศรีอยุธยา</h3>
+            <span class="text-[11px] text-warm-sub">จตุสดมภ์และกรมสำคัญ</span>
+          </div>
+          <div id="departmentsList" class="space-y-2 max-h-[280px] overflow-y-auto pr-1 custom-scroll text-xs"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- โมดอลบันทึก / โหลดชะตาชีวิต -->
+  <div
+    id="saveModal"
+    class="fixed inset-0 z-40 hidden items-center justify-center bg-stone-900/45 backdrop-blur-[2px] p-3 sm:p-5"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="cozy-card modal-pop max-w-2xl w-full rounded-3xl p-5 sm:p-6 max-h-[90vh] overflow-y-auto custom-scroll space-y-4">
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-warm-slateSoft text-warm-slate">
+            จัดเก็บปลอดภัยในเครื่อง / ไฟล์สำรอง
+          </span>
+          <h2 class="font-serif text-xl sm:text-2xl font-bold text-warm-ink mt-1">
+            บันทึกและโหลดชะตาชีวิต
+          </h2>
+        </div>
+        <button
+          id="btnCloseSaveModal"
+          type="button"
+          class="px-3.5 py-1.5 rounded-xl text-xs font-semibold cozy-inset hover:bg-warm-sand/70 text-warm-ink transition cursor-pointer"
+        >
+          ปิด
+                  </button>
+      </div>
+
+      <div id="autoSaveSlotCard" class="cozy-inset rounded-2xl p-3.5 text-xs space-y-2"></div>
+
+      <div class="space-y-2.5">
+        <div class="text-xs font-bold text-warm-ink">ช่องบันทึกหลัก ๓ ช่อง</div>
+        <div id="manualSaveSlotsBox" class="space-y-2.5"></div>
+      </div>
+
+      <div class="cozy-inset rounded-2xl p-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs">
+        <div>
+          <div class="font-bold text-warm-ink">สำรองข้อมูลเป็นไฟล์ (.json) หรือนำเข้าไฟล์กลับ</div>
+          <div class="text-warm-sub mt-0.5">เหมาะสำหรับเก็บไว้ในเครื่องหรือย้ายอุปกรณ์เล่นต่อ</div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <button
+            id="btnExportJson"
+            type="button"
+            class="px-3 py-2 rounded-xl font-semibold bg-warm-goldSoft hover:bg-[#ebd9ad] text-warm-ink border border-warm-gold/40 transition cursor-pointer"
+          >
+            ส่งออก .json
+          </button>
+          <label
+            for="importJsonInput"
+            class="px-3 py-2 rounded-xl font-semibold bg-warm-sageSoft hover:bg-[#d8e6de] text-warm-sage border border-warm-sage/35 transition cursor-pointer"
+          >
+            นำเข้า .json
+          </label>
+          <input id="importJsonInput" type="file" accept=".json,application/json" class="hidden" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- โมดอลยืนยันการกระทำ (แทน confirm()) -->
+  <div
+    id="confirmModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-stone-900/50 backdrop-blur-[2px] p-4"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="cozy-card modal-pop max-w-md w-full rounded-3xl p-5 space-y-4 border-2 border-warm-gold/50">
+      <h3 id="confirmTitle" class="font-serif text-lg font-bold text-warm-ink">ยืนยันการดำเนินการ</h3>
+      <p id="confirmMessage" class="text-xs sm:text-sm text-warm-sub leading-relaxed"></p>
+      <div class="flex items-center justify-end gap-2 pt-1">
+        <button
+          id="btnConfirmCancel"
+          type="button"
+          class="px-4 py-2 rounded-xl text-xs font-semibold cozy-inset hover:bg-warm-sand/70 text-warm-ink transition cursor-pointer"
+        >
+          ยกเลิก
+        </button>
+        <button
+          id="btnConfirmOk"
+          type="button"
+          class="px-4 py-2 rounded-xl text-xs font-semibold bg-warm-rose hover:bg-[#9c4c41] text-white transition cursor-pointer"
+        >
+          ยืนยัน
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- โมดอลจบชีวิต / สืบตระกูลเป็นบุตร -->
+  <div
+    id="deathModal"
+    class="fixed inset-0 z-40 hidden items-center justify-center bg-stone-900/55 backdrop-blur-[2px] p-3 sm:p-5"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div class="cozy-card modal-pop max-w-lg w-full rounded-3xl p-5 sm:p-6 max-h-[90vh] overflow-y-auto custom-scroll space-y-4 border-2 border-warm-rose/40">
+      <div>
+        <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-warm-roseSoft text-warm-rose">
+          สิ้นสุดชะตาชีวิตในกรุงศรีอยุธยา
+        </span>
+        <h2 id="deathTitle" class="font-serif text-2xl font-bold text-warm-ink mt-1">
+          ปิดฉากหนึ่งชีวิต
+        </h2>
+        <p id="deathSummaryText" class="text-xs sm:text-sm text-warm-sub mt-1 leading-relaxed"></p>
+      </div>
+
+      <div id="deathStatsBox" class="cozy-inset rounded-2xl p-3.5 space-y-1.5 text-xs"></div>
+
+      <div id="heirSelectionBox" class="space-y-2"></div>
+
+      <div class="flex flex-wrap items-center justify-end gap-2 pt-2">
+        <button
+          id="btnDeathOpenSave"
+          type="button"
+          class="px-3.5 py-2.5 rounded-xl text-xs font-semibold cozy-inset hover:bg-warm-sand/70 text-warm-ink transition cursor-pointer"
+        >
+          เปิดหน้าโหลดชะตา
+        </button>
+        <button
+          id="btnDeathNewLife"
+          type="button"
+          class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-warm-sage hover:bg-[#416454] text-white transition cursor-pointer"
+        >
+          สุ่มเกิดชีวิตใหม่ (รุ่นที่ ๑)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. ระบบเสียงสังเคราะห์นุ่มนวลผ่าน Web Audio API (ไม่มีไฟล์เสียงภายนอก)
+    // =========================================================================
+    const SoundEngine = {
+      enabled: true,
+      ctx: null,
+      ensureCtx() {
+        if (!this.enabled) return null;
+        try {
+          if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) this.ctx = new AudioCtx();
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume().catch(() => {});
+          }
+          return this.ctx;
+        } catch (_) {
+          return null;
+        }
+      },
+      playTone(freq = 520, duration = 0.09, type = 'sine', gainVal = 0.035) {
+        const ctx = this.ensureCtx();
+        if (!ctx) return;
+        try {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, ctx.currentTime);
+          gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(gainVal, ctx.currentTime + 0.015);
+          gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + duration + 0.02);
+        } catch (_) {}
+      },
+      softClick() {
+        this.playTone(540, 0.06, 'sine', 0.025);
+      },
+      eventAlert() {
+        this.playTone(587.33, 0.11, 'triangle', 0.04);
+        setTimeout(() => this.playTone(783.99, 0.14, 'triangle', 0.035), 95);
+      },
+      milestone() {
+        this.playTone(523.25, 0.12, 'sine', 0.04);
+        setTimeout(() => this.playTone(659.25, 0.12, 'sine', 0.04), 100);
+        setTimeout(() => this.playTone(783.99, 0.18, 'sine', 0.04), 200);
+      },
+    };
+
+    // =========================================================================
+    // 2. ข้อมูลปฏิทินสุริยคติ จันทรคติไทย และฤดูกาลตามเดือน (พ.ศ. ๒๐๓๑–๒๒๓๑)
+    // =========================================================================
+    const THAI_DIGITS = ['๐', '๑', '๒', '๓', '๔', '๕', '๖', '๗', '๘', '๙'];
+    function toThaiDigits(val) {
+      return String(val).replace(/\d/g, (d) => THAI_DIGITS[Number(d)]);
+    }
+
+    const SOLAR_MONTHS = [
+      { m: 1, name: 'มกราคม', days: 31, lunarBase: 'เดือนอ้าย', seasonKey: 'winter' },
+      { m: 2, name: 'กุมภาพันธ์', days: 28, lunarBase: 'เดือนยี่', seasonKey: 'summer' },
+      { m: 3, name: 'มีนาคม', days: 31, lunarBase: 'เดือนสาม', seasonKey: 'summer' },
+      { m: 4, name: 'เมษายน', days: 30, lunarBase: 'เดือนสี่', seasonKey: 'summer' },
+      { m: 5, name: 'พฤษภาคม', days: 31, lunarBase: 'เดือนห้า', seasonKey: 'rainy' },
+      { m: 6, name: 'มิถุนายน', days: 30, lunarBase: 'เดือนหก', seasonKey: 'rainy' },
+      { m: 7, name: 'กรกฎาคม', days: 31, lunarBase: 'เดือนเจ็ด', seasonKey: 'rainy' },
+      { m: 8, name: 'สิงหาคม', days: 31, lunarBase: 'เดือนแปด', seasonKey: 'rainy' },
+      { m: 9, name: 'กันยายน', days: 30, lunarBase: 'เดือนเก้า', seasonKey: 'rainy' },
+      { m: 10, name: 'ตุลาคม', days: 31, lunarBase: 'เดือนสิบ', seasonKey: 'rainy' },
+      { m: 11, name: 'พฤศจิกายน', days: 30, lunarBase: 'เดือนสิบเอ็ด', seasonKey: 'winter' },
+      { m: 12, name: 'ธันวาคม', days: 31, lunarBase: 'เดือนสิบสอง', seasonKey: 'winter' },
+    ];
+
+    const WEEKDAYS_TH = [
+      'วันอาทิตย์',
+      'วันจันทร์',
+      'วันอังคาร',
+      'วันพุธ',
+      'วันพฤหัสบดี',
+      'วันศุกร์',
+      'วันเสาร์',
+    ];
+
+    const SEASONS_BY_MONTH = {
+      summer: {
+        key: 'summer',
+        name: 'คิมหันตฤดู (ฤดูร้อนและแล้ง)',
+        shortEffect: 'น้ำลำคลองตื้นเขิน เดินเรือลำบากแต่สินค้าบกและหัตถกรรมคล่องตัว',
+        tradeMult: 0.92,
+        farmMult: 0.85,
+        healthDrift: -0.06,
+      },
+      rainy: {
+        key: 'rainy',
+        name: 'วสันตฤดู / ฤดูน้ำหลาก',
+        shortEffect: 'ฝนชุกน้ำเจ้าพระยาเอ่อท้น นาข้าวอุดมสมบูรณ์แต่ไข้ป่าและน้ำท่วมชุก',
+        tradeMult: 1.18,
+        farmMult: 1.25,
+        healthDrift: -0.09,
+      },
+      winter: {
+        key: 'winter',
+        name: 'เหมันตฤดู (ฤดูหนาวและลมหนาว)',
+        shortEffect: 'อากาศเย็นสบายเรือสำเภาต่างชาติเทียบท่าคึกคัก การค้าและงานราชการรุ่งเรือง',
+        tradeMult: 1.24,
+        farmMult: 1.05,
+        healthDrift: 0.04,
+      },
+    };
+
+    const AYUTTHAYA_ERAS = [
+      { from: 2031, to: 2071, label: 'รัชกาลสมเด็จพระรามาธิบดีที่ ๒' },
+      { from: 2072, to: 2089, label: 'สมัยพระบรมราชาธิราชที่ ๔ – พระไชยราชา' },
+      { from: 2090, to: 2111, label: 'สมัยพระยอดฟ้า – สมเด็จพระมหาจักรพรรดิ' },
+      { from: 2112, to: 2148, label: 'สมัยสมเด็จพระมหาธรรมราชา – สมเด็จพระนเรศวรมหาราช' },
+      { from: 2149, to: 2171, label: 'สมัยสมเด็จพระเอกาทศรถ – สมเด็จพระเจ้าทรงธรรม' },
+      { from: 2172, to: 2199, label: 'สมัยสมเด็จพระเจ้าปราสาททอง – เจ้าฟ้าไชย' },
+      { from: 2200, to: 2231, label: 'สมัยสมเด็จพระนารายณ์มหาราช' },
+    ];
+
+    function isLeapSolarYearBE(yearBE) {
+      const ce = yearBE - 543;
+      return (ce % 4 === 0 && ce % 100 !== 0) || ce % 400 === 0;
+    }
+
+    function getDaysInSolarMonth(yearBE, month) {
+      const mObj = SOLAR_MONTHS[month - 1] || SOLAR_MONTHS[0];
+      if (month === 2 && isLeapSolarYearBE(yearBE)) return 29;
+      return mObj.days;
+    }
+
+    function getSeasonByMonth(month) {
+      const mObj = SOLAR_MONTHS[month - 1] || SOLAR_MONTHS[0];
+      return SEASONS_BY_MONTH[mObj.seasonKey] || SEASONS_BY_MONTH.summer;
+    }
+
+    function getEraLabel(yearBE) {
+      const found = AYUTTHAYA_ERAS.find((e) => yearBE >= e.from && yearBE <= e.to);
+      return found ? found.label : 'ยุคกลางกรุงศรีอยุธยา';
+    }
+
+    // คำนวณปฏิทินจันทรคติไทย (ข้างขึ้น ๑–๑๕ ค่ำ / ข้างแรม ๑–๑๕ ค่ำ และเดือนอ้าย–เดือนสิบสอง)
+    function computeThaiLunar(yearBE, month, day, totalDaysElapsed) {
+      const mObj = SOLAR_MONTHS[month - 1] || SOLAR_MONTHS[0];
+      const phaseCycle = (((totalDaysElapsed + day - 1) % 30) + 30) % 30; // 0..29
+      const isWaxing = phaseCycle < 15;
+      const nightNum = isWaxing ? phaseCycle + 1 : phaseCycle - 14; // 1..15
+      const waxingLabel = isWaxing ? `ขึ้น ${toThaiDigits(nightNum)} ค่ำ` : `แรม ${toThaiDigits(nightNum)} ค่ำ`;
+      const lunarMonthName = mObj.lunarBase;
+      return {
+        isWaxing,
+        nightNum,
+        lunarMonthName,
+        waxingLabel,
+        formattedText: `${waxingLabel} ${lunarMonthName}`,
+      };
+    }
+
+    function getWeekdayName(totalDaysElapsed) {
+      return WEEKDAYS_TH[((totalDaysElapsed % 7) + 7) % 7];
+    }
+
+    function formatSolarDate(s) {
+      const mObj = SOLAR_MONTHS[s.month - 1] || SOLAR_MONTHS[0];
+      return `${toThaiDigits(s.day)} ${mObj.name} พ.ศ. ${toThaiDigits(s.yearBE)}`;
+    }
+
+    // =========================================================================
+    // 3. ข้อมูลชนชั้น ภูมิหลังบุพการีชาวสยามและต่างชาติ กรมกอง และบรรดาศักดิ์
+    // =========================================================================
+    const SOCIAL_ORIGINS = [
+      {
+        id: 'phrai_luang',
+        classLabel: 'ไพร่หลวง',
+        originSummary: 'บุตรไพร่หลวงสังกัดกรมกองหลวงในกรุงศรีอยุธยา',
+        districts: ['ย่านหัวรอ', 'ย่านท้ายคู', 'ย่านป่าถ่าน'],
+        parentTitles: ['นายหมู่ไพร่', 'ไพร่หลวงกรมนา', 'ไพร่หลวงกรมเวียง'],
+        defaultDept: 'dept_na',
+        baseStats: { health: 64, spirit: 56, wit: 48, charm: 48 },
+        trait: 'อดทนตรากตรำ',
+      },
+      {
+        id: 'phrai_som',
+        classLabel: 'ไพร่สม',
+        originSummary: 'บุตรไพร่สมในความอุปการะของขุนนางท้องถิ่น',
+        districts: ['ย่านคลองสวนพลู', 'ย่านประตูจีน', 'ย่านบ้านใหม่'],
+        parentTitles: ['ไพร่สมเรือนขุนนาง', 'คนงานสวนผลไม้', 'ผู้ช่วยนายช่าง'],
+        defaultDept: 'dept_wiang',
+        baseStats: { health: 60, spirit: 58, wit: 52, charm: 52 },
+        trait: 'คล่องแคล่วรู้จักปรับตัว',
+      },
+      {
+        id: 'mun_nai',
+        classLabel: 'มูลนาย',
+        originSummary: 'บุตรหลานมูลนายผู้ควบคุมไพร่และดูแลกิจการเรือน',
+        districts: ['ย่านท่าช้าง', 'ย่านคลองตะเคียน', 'ย่านหน้าวัดพระศรีสรรเพชญ์'],
+        parentTitles: ['ขุนหมื่นผู้ควบคุมไพร่', 'นายเรือนผู้มีบารมี', 'สมุห์บัญชีท้องถิ่น'],
+        defaultDept: 'dept_wang',
+        baseStats: { health: 58, spirit: 54, wit: 60, charm: 62 },
+        trait: 'สง่างามมีแววผู้นำ',
+      },
+      {
+        id: 'khun_nang',
+        classLabel: 'ขุนนาง',
+        originSummary: 'บุตรข้าราชการผู้มีบรรดาศักดิ์และศักดินาในกรุงศรีอยุธยา',
+        districts: ['ย่านในกำแพงพระนคร', 'ย่านท่าทราย', 'ย่านหน้าวัง'],
+        parentTitles: ['หลวงปลัดกรม', 'ขุนจ่าศาล', 'หมื่นราชามาตย์'],
+        defaultDept: 'dept_khlang',
+        baseStats: { health: 56, spirit: 55, wit: 66, charm: 64 },
+        trait: 'คุ้นเคยธรรมเนียมหลวง',
+      },
+      {
+        id: 'temple_kin',
+        classLabel: 'สายวัดและศาสนา',
+        originSummary: 'เติบโตในครัวเรือนใกล้ชิดวัดวาอารามและสำนักสอนอักษรขอม-ไทย',
+        districts: ['ย่านวัดมหาธาตุ', 'ย่านวัดราชบูรณะ', 'ย่านป่าแก้ว'],
+        parentTitles: ['ไวยาวัจกรวัด', 'ครูสอนอักษรและคัมภีร์', 'ผู้ดูแลหอไตร'],
+        defaultDept: 'path_temple',
+        baseStats: { health: 58, spirit: 70, wit: 64, charm: 54 },
+        trait: 'สงบใจใฝ่สรรพวิชา',
+      },
+      {
+        id: 'merchant_kin',
+        classLabel: 'พ่อค้าและช่างฝีมือ',
+        originSummary: 'บุตรหลานพ่อค้าแม่ค้าและช่างหัตถกรรมริมแม่น้ำเจ้าพระยา',
+        districts: ['ย่านตลาดน้ำปากคลอง', 'ย่านช่างหล่อ', 'ย่านท่าเรือสินค้า'],
+        parentTitles: ['พ่อค้าเรือนแพ', 'ช่างทองและช่างไม้', 'นายหน้าค้าเครื่องเทศ'],
+        defaultDept: 'path_trade',
+        baseStats: { health: 59, spirit: 55, wit: 62, charm: 60 },
+        trait: 'ไหวพริบค้าขาย',
+      },
+      {
+        id: 'foreign_jp',
+        classLabel: 'ชาวญี่ปุ่นในอยุธยา',
+        originSummary: 'สืบเชื้อสายชุมชนชาวญี่ปุ่นในกรุงศรีอยุธยา (บ้านญี่ปุ่น)',
+        districts: ['ค่ายบ้านญี่ปุ่นฝั่งตะวันออก'],
+        parentTitles: ['หัวหน้าหมู่บ้านญี่ปุ่น', 'นายกองอาสาญี่ปุ่น', 'พ่อค้าเรือสำเภาญี่ปุ่น'],
+        defaultDept: 'dept_asa_jp',
+        baseStats: { health: 65, spirit: 60, wit: 56, charm: 52 },
+        trait: 'เด็ดเดี่ยวรักษาคำสัตย์',
+      },
+      {
+        id: 'foreign_nl',
+        classLabel: 'ชาวฮอลันดา (VOC)',
+        originSummary: 'บุตรหลานผู้ตั้งรกรากและผู้เกี่ยวข้องกับสถานีการค้าชาวฮอลันดา',
+        districts: ['ย่านสถานีการค้าฮอลันดา (VOC)'],
+        parentTitles: ['ล่ามและนายหน้าการค้าฮอลันดา', 'ต้นหนเรือเดินสมุทร', 'เสมียนคลังสินค้า'],
+        defaultDept: 'dept_tha_khwa',
+        baseStats: { health: 58, spirit: 52, wit: 66, charm: 58 },
+        trait: 'เชี่ยวชาญการคำนวณและเดินเรือ',
+      },
+      {
+        id: 'foreign_pt',
+        classLabel: 'ชาวโปรตุเกส',
+        originSummary: 'บุตรหลานชุมชนโปรตุเกสผู้ชำนาญปืนใหญ่และวิทยาการตะวันตก',
+        districts: ['ค่ายบ้านโปรตุเกส'],
+        parentTitles: ['นายช่างปืนไฟโปรตุเกส', 'พ่อค้าเครื่องเทศและอาวุธ', 'ผู้ฝึกทหารอาสา'],
+        defaultDept: 'dept_kalahom',
+        baseStats: { health: 60, spirit: 55, wit: 62, charm: 57 },
+        trait: 'ช่ำชองอาวุธและภูมิศาสตร์',
+      },
+      {
+        id: 'foreign_cn',
+        classLabel: 'ชาวจีนในอยุธยา',
+        originSummary: 'บุตรหลานพ่อค้าและช่างฝีมือชาวจีนในย่านการค้ากรุงศรีอยุธยา',
+        districts: ['ย่านตลาดจีนและสำเภาหลวง'],
+        parentTitles: ['นายสำเภาจีน', 'ช่างทำเครื่องปั้นและชา', 'พ่อค้าผ้าไหมและเครื่องเทศ'],
+        defaultDept: 'dept_tha_sai',
+        baseStats: { health: 60, spirit: 56, wit: 65, charm: 59 },
+        trait: 'ขยันหมั่นเพียรทำการค้า',
+      },
+      {
+        id: 'foreign_pr',
+        classLabel: 'ชาวเปอร์เซีย',
+        originSummary: 'บุตรหลานเชื้อสายเปอร์เซียผู้มีบทบาทด้านการค้าและราชสำนัก',
+        districts: ['ย่านชุมชนชาวเปอร์เซีย'],
+        parentTitles: ['พ่อค้าม้าและเครื่องหอมเปอร์เซีย', 'ผู้เชี่ยวชาญดาราศาสตร์และยา', 'ล่ามราชสำนัก'],
+        defaultDept: 'dept_tha_sai',
+        baseStats: { health: 57, spirit: 58, wit: 67, charm: 63 },
+        trait: 'ละเมียดละไมรอบรู้วิทยาการ',
+      },
+      {
+        id: 'foreign_mn',
+        classLabel: 'ชาวมอญ',
+        originSummary: 'บุตรหลานชุมชนชาวมอญผู้มีฝีมือด้านช่างศิลป์และการฝีพาย',
+        districts: ['บ้านมอญริมลำน้ำ'],
+        parentTitles: ['นายช่างปูนปั้นมอญ', 'ฝีพายเรือหลวง', 'ผู้ใหญ่บ้านชุมชนมอญ'],
+        defaultDept: 'dept_mahatthai',
+        baseStats: { health: 63, spirit: 60, wit: 55, charm: 54 },
+        trait: 'ฝีมือประณีตและพละกำลัง',
+      },
+    ];
+
+    const THAI_MALE_NAMES = [
+      'ทองคำ', 'บุญมาก', 'แก้ว', 'มั่น', 'ศรี', 'เดช', 'จัน', 'เพชร', 'แสง', 'นิ่ม', 'รุ่ง', 'สุข',
+    ];
+    const THAI_FEMALE_NAMES = [
+      'บัว', 'แจ่ม', 'กลิ่น', 'สาย', 'พลอย', 'นวล', 'คำ', 'จันทร์', 'พวง', 'ศรี', 'อิ่ม', 'ละไม',
+    ];
+    const FOREIGN_GIVEN_NAMES = {
+      foreign_jp: ['เคนจิ', 'ทาโร่', 'ฮิโระ', 'ซาโตะ', 'มิโกะ', 'ยูมิ'],
+      foreign_nl: ['ยาน', 'วิลเล็ม', 'เฮนดริก', 'คอร์เนลิส', 'อันนา', 'มารี'],
+      foreign_pt: ['เปโดร', 'มานูเอล', 'ดีเอโก', 'อันโตนิโอ', 'อิสเบล', 'กาทารินา'],
+      foreign_cn: ['อาเฉิน', 'อาหลง', 'อาหมิง', 'อาฟู่', 'อาลี่', 'อาเมย์'],
+      foreign_pr: ['ฮัสซัน', 'อาลี', 'เรซา', 'มูซา', 'ซารา', 'ยาสมิน'],
+      foreign_mn: ['มังคะลา', 'เนียง', 'อ่อง', 'สะมิง', 'มิตร', 'ช่อ'],
+    };
+
+    const DEPARTMENTS = [
+      {
+        id: 'dept_wiang',
+        name: 'กรมเวียง (นครบาล)',
+        chiefTitle: 'พระยายมราช',
+        chiefName: 'ออกญายมราช',
+        desc: 'ดูแลความสงบเรียบร้อยในพระนคร การศาล และตรวจตราตลาดย่านชุมชน',
+        minWit: 35,
+        minSpirit: 35,
+      },
+      {
+        id: 'dept_wang',
+        name: 'กรมวัง',
+        chiefTitle: 'พระยาธรรมาธิกรณ์',
+        chiefName: 'ออกญาธรรมา',
+        desc: 'ดูแลกิจการในพระราชวัง พระราชพิธี และระเบียบแบบแผนราชสำนัก',
+        minWit: 45,
+        minSpirit: 45,
+      },
+      {
+        id: 'dept_khlang',
+        name: 'กรมคลัง',
+        chiefTitle: 'เจ้าพระยาโกษาธิบดี',
+        chiefName: 'ออกญาพระคลัง',
+        desc: 'ดูแลรายได้แผ่นดิน ส่วยสาอากร คลังสินค้า และกิจการต่างประเทศ',
+        minWit: 50,
+        minSpirit: 35,
+      },
+      {
+        id: 'dept_na',
+        name: 'กรมนา',
+        chiefTitle: 'พระยาพลเทพ',
+        chiefName: 'ออกญาพลเทพ',
+        desc: 'ดูแลการทำนา ไร่สวน คลังข้าวหลวง และบัญชีที่ดินทำกิน',
+        minWit: 30,
+        minSpirit: 30,
+      },
+      {
+        id: 'dept_kalahom',
+        name: 'กรมกลาโหม',
+        chiefTitle: 'สมุหพระกลาโหม',
+        chiefName: 'เจ้าพระยากลาโหม',
+        desc: 'บังคับบัญชากองทัพ ป้อมปราการ อาวุธยุทโธปกรณ์ และการป้องกันพระนคร',
+        minWit: 35,
+        minSpirit: 45,
+      },
+      {
+        id: 'dept_mahatthai',
+        name: 'กรมมหาดไทย',
+        chiefTitle: 'สมุหนายก',
+        chiefName: 'เจ้าพระยามหาดไทย',
+        desc: 'ปกครองหัวเมืองฝ่ายเหนือ ทะเบียนไพร่พล และกิจการพลเรือน',
+        minWit: 42,
+        minSpirit: 42,
+      },
+      {
+        id: 'dept_tha_sai',
+        name: 'กรมท่าซ้าย',
+        chiefTitle: 'หลวงอนุชิตพิทักษ์',
+        chiefName: 'ออกหลวงท่าซ้าย',
+        desc: 'ดูแลการค้าและเรือสำเภาจากจีน ญวน และภูมิภาคเอเชียตะวันออก',
+        minWit: 45,
+        minSpirit: 35,
+      },
+      {
+        id: 'dept_tha_khwa',
+        name: 'กรมท่าขวา',
+        chiefTitle: 'หลวงราชาเศรษฐี',
+        chiefName: 'ออกหลวงท่าขวา',
+        desc: 'ดูแลการค้าและคณะทูตจากฮอลันดา โปรตุเกส อังกฤษ เปอร์เซีย และอินเดีย',
+        minWit: 48,
+        minSpirit: 35,
+      },
+      {
+        id: 'dept_asa_jp',
+        name: 'กรมอาสาหกเหล่า / กรมอาสาญี่ปุ่น',
+        chiefTitle: 'ออกหลวงอาสา',
+        chiefName: 'ยามาดะ นางามาสะ / นายกองอาสา',
+        desc: 'หน่วยทหารอาสาฝีมือจัดจ้าน ทั้งอาสาญี่ปุ่นและกองอาสาชำนาญศึก',
+        minWit: 30,
+        minSpirit: 45,
+      },
+      {
+        id: 'dept_aralak',
+        name: 'กรมพระอาลักษณ์',
+        chiefTitle: 'ขุนสารประเสริฐ',
+        chiefName: 'พระศรีภูริปรีชา',
+        desc: 'ร่างพระราชสาส์น จดหมายเหตุ บันทึกเหตุการณ์แผ่นดิน และหนังสือราชการ',
+        minWit: 58,
+        minSpirit: 40,
+      },
+      {
+        id: 'dept_phaethaya',
+        name: 'กรมแพทยา',
+        chiefTitle: 'หลวงแพทยาธิบดี',
+        chiefName: 'หมอหลวงประจำกรม',
+        desc: 'ปรุงยาสมุนไพร รักษาโรคภัยไข้เจ็บในพระนครและเจ้านายขุนนาง',
+        minWit: 52,
+        minSpirit: 45,
+      },
+      {
+        id: 'path_trade',
+        name: 'สายพ่อค้าและช่างฝีมืออิสระ',
+        chiefTitle: 'นายกสมาคมย่านการค้า',
+        chiefName: 'เถ้าแก่ใหญ่ริมน้ำ',
+        desc: 'ค้าขายเรือสำเภา เครื่องเทศ ผ้าไหม และสร้างสรรค์งานฝีมือโดยไม่ผูกมัดยศขุนนาง',
+        minWit: 0,
+        minSpirit: 0,
+      },
+      {
+        id: 'path_temple',
+        name: 'สายวัดวาอารามและสรรพวิชา',
+        chiefTitle: 'พระครูเจ้าอาวาส',
+        chiefName: 'พระอาจารย์ใหญ่แห่งวัด',
+        desc: 'ศึกษาพระธรรม อักษรขอม-ไทย โหราศาสตร์ ตำรายา และบำเพ็ญภาวนา',
+        minWit: 0,
+        minSpirit: 0,
+      },
+    ];
+
+    
+    const OFFICIAL_RANKS = [
+      { title: 'สามัญชน / ผู้เริ่มชีวิต', sakdina: 25, stipend: 0 },
+      { title: 'เสมียนฝึกหัด / ผู้ช่วยงาน', sakdina: 100, stipend: 4 },
+      { title: 'หมื่น', sakdina: 400, stipend: 12 },
+      { title: 'ขุน', sakdina: 800, stipend: 25 },
+      { title: 'หลวง', sakdina: 1600, stipend: 45 },
+      { title: 'พระยา', sakdina: 5000, stipend: 85 },
+      { title: 'เจ้าพระยา', sakdina: 10000, stipend: 140 },
+    ];
+
+    // =========================================================================
+    // 4. กิจกรรมอิสระเมื่ออายุครบ ๓ ขวบขึ้นไป (๕ หมวดหมู่)
+    // =========================================================================
+    const ACTIVITY_CATEGORIES = [
+      { id: 'study', label: 'เรียนรู้อักษรและวิชา' },
+      { id: 'labor', label: 'ฝึกฝนและแรงงาน' },
+      { id: 'trade', label: 'ค้าขายและหัตถกรรม' },
+      { id: 'court', label: 'ราชการและสายสัมพันธ์' },
+      { id: 'rest', label: 'พักผ่อนและทำบุญ' },
+    ];
+
+    const ACTIVITIES = [
+      // หมวดเรียนรู้อักษรและวิชา
+      {
+        id: 'act_read_khom',
+        cat: 'study',
+        minAge: 3,
+        daysCost: 14,
+        title: 'ร่ำเรียนอักษรไทยและอักษรขอม',
+        desc: 'ฝึกอ่านเขียนตำรา หนังสือราชการ และคัมภีร์โบราณกับครูอาจารย์',
+        effectHint: 'สติปัญญา +๔ • ใช้เวลา ๑๔ วัน',
+        run(s) {
+          s.stats.wit = clamp(s.stats.wit + 4, 0, 100);
+          s.stats.spirit = clamp(s.stats.spirit + 1, 0, 100);
+          return 'คุณตั้งใจคัดลายมือและอ่านตำราจนแตกฉานขึ้นมาก';
+        },
+      },
+      {
+        id: 'act_astro_herb',
+        cat: 'study',
+        minAge: 10,
+        daysCost: 18,
+        title: 'ศึกษาตำราสมุนไพรและโหราศาสตร์',
+        desc: 'จำแนกสรรพคุณพืชสมุนไพรและคำนวณฤกษ์ยามตามคัมภีร์อยุธยา',
+        effectHint: 'สติปัญญา +๕ • จิตใจ +๒ • ค่าใช้จ่าย ๒ เบี้ย',
+        run(s) {
+          if (s.wealth < 2) return 'ไม่มีเบี้ยพอซื้อตำราและสมุนไพรในคราวนี้';
+          s.wealth -= 2;
+          s.stats.wit = clamp(s.stats.wit + 5, 0, 100);
+          s.stats.spirit = clamp(s.stats.spirit + 2, 0, 100);
+          return 'คุณเรียนรู้การปรุงยาและดูฤกษ์ยามได้ลึกซึ้งยิ่งขึ้น';
+        },
+      },
+      {
+        id: 'act_foreign_tongues',
+        cat: 'study',
+        minAge: 12,
+        daysCost: 20,
+        title: 'ฝึกภาษาต่างประเทศย่านการค้า',
+        desc: 'สนทนาภาษาจีน มลายู โปรตุเกส หรือฮอลันดากับผู้รู้ในย่านท่าเรือ',
+        effectHint: 'สติปัญญา +๔ • เสน่ห์/บารมี +๓',
+        run(s) {
+          s.stats.wit = clamp(s.stats.wit + 4, 0, 100);
+          s.stats.charm = clamp(s.stats.charm + 3, 0, 100);
+          return 'ทักษะการสื่อสารกับชาวต่างชาติช่วยให้คุณเจรจาได้คล่องแคล่ว';
+        },
+      },
+
+      // หมวดฝึกฝนและแรงงาน
+      {
+        id: 'act_farm_work',
+        cat: 'labor',
+        minAge: 6,
+        daysCost: 15,
+        title: 'ลงแรงทำนา ปลูกพืช และถางพง',
+        desc: 'ผลลัพธ์ขึ้นกับฤดูกาล (ฤดูน้ำหลากได้ผลผลิตดีเป็นพิเศษ)',
+        effectHint: 'สุขภาพ +๓ • ได้เบี้ยตามฤดูกาล • ใช้เวลา ๑๕ วัน',
+        run(s) {
+          const season = getSeasonByMonth(s.month);
+          const basePay = s.ageYears < 14 ? 4 : 9;
+          const earned = Math.max(2, Math.round(basePay * season.farmMult));
+          s.wealth += earned;
+          s.stats.health = clamp(s.stats.health + (season.key === 'rainy' ? 2 : 3), 0, 100);
+          s.stats.spirit = clamp(s.stats.spirit + 1, 0, 100);
+          return `ลงแรงใน${season.name} ได้รับค่าแรง ${toThaiDigits(earned)} เบี้ย`;
+        },
+      },
+      {
+        id: 'act_martial_drill',
+        cat: 'labor',
+        minAge: 8,
+        daysCost: 16,
+        title: 'ฝึกเพลงดาบ ทวน และยิงปืนไฟ',
+        desc: 'ฝึกฝนร่างกายและทักษะการต่อสู้ให้แกร่งกล้า',
+        effectHint: 'สุขภาพ +๔ • จิตใจ +๓ • เสน่ห์/บารมี +๒',
+        run(s) {
+          s.stats.health = clamp(s.stats.health + 4, 0, 100);
+          s.stats.spirit = clamp(s.stats.spirit + 3, 0, 100);
+          s.stats.charm = clamp(s.stats.charm + 2, 0, 100);
+          return 'ร่างกายแข็งแกร่งขึ้นและมีท่วงท่าองอาจน่าเกรงขาม';
+        },
+      },
+      {
+        id: 'act_rowing_corvee',
+        cat: 'labor',
+        minAge: 14,
+        daysCost: 15,
+        title: 'พายเรือบรรทุกและรับใช้แรงงานย่านน้ำ',
+        desc: 'ฝีพายในลำน้ำเจ้าพระยาได้ผลตอบแทนสูงในฤดูหนาวและฤดูน้ำหลาก',
+        effectHint: 'สุขภาพ +๓ • ได้เบี้ยตามฤดูกาล',
+        run(s) {
+          const season = getSeasonByMonth(s.month);
+          const earned = Math.max(5, Math.round(12 * season.tradeMult));
+          s.wealth += earned;
+          s.stats.health = clamp(s.stats.health + 3, 0, 100);
+          return `พายเรือรับจ้างใน${season.name} ได้รับ ${toThaiDigits(earned)} เบี้ย`;
+        },
+      },
+
+      // หมวดค้าขายและหัตถกรรม
+      {
+        id: 'act_market_trade',
+        cat: 'trade',
+        minAge: 10,
+        daysCost: 14,
+        title: 'ค้าขายเครื่องเทศ ผ้าไหม และของป่าในตลาด',
+        desc: 'กำไรผันแปรตามฤดูกาลและสติปัญญา/เสน่ห์การเจรจา',
+        effectHint: 'มีโอกาสได้เบี้ยมาก • เสน่ห์/บารมี +๒',
+        run(s) {
+          const season = getSeasonByMonth(s.month);
+          const skillFactor = 0.75 + (s.stats.wit + s.stats.charm) / 220;
+          const earned = Math.max(4, Math.round(14 * season.tradeMult * skillFactor));
+          s.wealth += earned;
+          s.stats.charm = clamp(s.stats.charm + 2, 0, 100);
+          s.stats.wit = clamp(s.stats.wit + 1, 0, 100);
+          return `ค้าขายในตลาดอยุธยาช่วง${season.name} ได้กำไร ${toThaiDigits(earned)} เบี้ย`;
+        },
+      },
+      {
+        id: 'act_craft_art',
+        cat: 'trade',
+        minAge: 9,
+        daysCost: 16,
+        title: 'สร้างสรรค์งานหัตถกรรม ช่างไม้ ช่างทอง หรือปั้นลาย',
+        desc: 'ประณีตบรรจงสร้างผลงานที่มีมูลค่าสูง',
+        effectHint: 'สติปัญญา +๓ • ได้เบี้ย • ใช้เวลา ๑๖ วัน',
+        run(s) {
+          const earned = Math.max(6, Math.round(11 + s.stats.wit * 0.12));
+          s.wealth += earned;
+          s.stats.wit = clamp(s.stats.wit + 3, 0, 100);
+          return `สร้างผลงานหัตถกรรมสำเร็จ ขายได้ ${toThaiDigits(earned)} เบี้ย`;
+        },
+      },
+
+      // หมวดราชการและสายสัมพันธ์
+      {
+        id: 'act_join_or_serve_dept',
+        cat: 'court',
+        minAge: 15,
+        daysCost: 15,
+        title: 'ปฏิบัติราชการ / ถวายตัวสร้างความดีความชอบในกรมกอง',
+        desc: 'หากยังไม่มีกรมกองจะเข้าสังกัดกรมที่เหมาะสม และเพิ่มความดีความชอบกับเจ้ากรม',
+        effectHint: 'ความดีความชอบกรม +๑๐ • สัมพันธ์เจ้ากรม +๕ • เงินเบี้ยราชการ',
+        run(s) {
+          if (!s.departmentId) {
+            s.departmentId = s.origin.defaultDept || 'dept_wiang';
+            const dept = getDepartmentById(s.departmentId);
+            ensureChiefKnownPerson(s, dept);
+            addChronicle(
+              `เข้าสังกัด ${dept.name}`,
+              `เริ่มต้นรับราชการและฝากตัวกับ${dept.chiefTitle} (${dept.chiefName})`,
+              'milestone'
+            );
+          }
+          const dept = getDepartmentById(s.departmentId);
+          const chief = ensureChiefKnownPerson(s, dept);
+          s.bureaucracyMerit += 10;
+          chief.relation = clamp(chief.relation + 5, -100, 100);
+          s.stats.wit = clamp(s.stats.wit + 2, 0, 100);
+          s.stats.charm = clamp(s.stats.charm + 2, 0, 100);
+          const pay = 8 + s.rankLevel * 5;
+          s.wealth += pay;
+          return `ปฏิบัติหน้าที่ใน${dept.name} ได้รับเบี้ย ${toThaiDigits(pay)} เบี้ย และความดีความชอบเพิ่ม`;
+        },
+      },
+      {
+        id: 'act_promote_rank',
+        cat: 'court',
+        minAge: 18,
+        daysCost: 12,
+        title: 'ขอเลื่อนบรรดาศักดิ์และศักดินาตามความดีความชอบ',
+        desc: 'ต้องมีความดีความชอบสะสมพอสมควรและสังกัดกรมกองแล้ว',
+        effectHint: 'เลื่อนยศและศักดินาเมื่อความดีความชอบถึงเกณฑ์',
+        run(s) {
+          if (!s.departmentId) {
+            return 'ยังมิได้เข้าสังกัดกรมกองใด ลองปฏิบัติราชการในกรมกองก่อน';
+          }
+          if (s.rankLevel >= OFFICIAL_RANKS.length - 1) {
+            return 'คุณดำรงบรรดาศักดิ์สูงสุดในทำเนียบแล้ว';
+          }
+          const requiredMerit = (s.rankLevel + 1) * 25;
+          if (s.bureaucracyMerit < requiredMerit) {
+            return `ความดีความชอบยังไม่พอ (มี ${toThaiDigits(s.bureaucracyMerit)} / ต้องการ ${toThaiDigits(requiredMerit)})`;
+          }
+          s.rankLevel += 1;
+          const rankObj = OFFICIAL_RANKS[s.rankLevel];
+          s.sakdina = rankObj.sakdina;
+          s.stats.charm = clamp(s.stats.charm + 4, 0, 100);
+          const dept = getDepartmentById(s.departmentId);
+          addChronicle(
+            `เลื่อนบรรดาศักดิ์เป็น "${rankObj.title}"`,
+            `ได้รับพระราชทานบรรดาศักดิ์และศักดินา ${toThaiDigits(rankObj.sakdina)} ไร่ ในสังกัด${dept.name}`,
+            'milestone'
+          );
+          return `ยินดีด้วย! ได้รับเลื่อนเป็น "${rankObj.title}" ศักดินา ${toThaiDigits(rankObj.sakdina)} ไร่`;
+        },
+      },
+      {
+        id: 'act_meet_acquaintance',
+        cat: 'court',
+        minAge: 7,
+        daysCost: 10,
+        title: 'พบปะสนทนากับคนรู้จักและผูกมิตรใหม่',
+        desc: 'กระชับสายสัมพันธ์กับคนรู้จักที่มีอยู่ หรือพบสหาย/มิตรใหม่ในย่านอยุธยา',
+        effectHint: 'สายสัมพันธ์คนรู้จัก +๖ • เสน่ห์/บารมี +๒',
+        run(s) {
+          s.stats.charm = clamp(s.stats.charm + 2, 0, 100);
+          if (s.knownPeople.length > 0 && Math.random() < 0.72) {
+            const living = s.knownPeople.filter((p) => p.alive);
+            if (living.length > 0) {
+              const target = pickRandom(living);
+              target.relation = clamp(target.relation + 6, -100, 100);
+              return `ใช้เวลาสนทนาและแลกเปลี่ยนเรื่องราวกับ ${target.name} (${target.role}) สายสัมพันธ์แน่นแฟ้นขึ้น`;
+            }
+          }
+          const newFriend = createRandomAcquaintance(s);
+          s.knownPeople.push(newFriend);
+          return `ได้รู้จักและผูกมิตรกับ ${newFriend.name} (${newFriend.role}) ในกรุงศรีอยุธยา`;
+        },
+      },
+      {
+        id: 'act_seek_marriage',
+        cat: 'court',
+        minAge: 17,
+        daysCost: 14,
+        title: 'สู่ขอสมรสและตั้งเรือนสกุล',
+        desc: 'เมื่อถึงวัยเหมาะสม สามารถสมรสกับคู่ครองที่รู้จักหรือผู้เหมาะสมเพื่อสร้างครอบครัวและมีบุตร',
+        effectHint: 'สมรสและมีคู่ครอง • ใช้เงินสินสอด/เรือนเบี้ยตามฐานะ',
+        run(s) {
+          if (s.spouseId) {
+            return 'คุณมีคู่ครองอยู่แล้ว สามารถใช้เวลาดูแลครอบครัวและบุตรธิดาได้';
+          }
+          const dowry = s.wealth >= 15 ? 10 : 0;
+          s.wealth = Math.max(0, s.wealth - dowry);
+          const spouse = createSpousePerson(s);
+          s.knownPeople.push(spouse);
+          s.spouseId = spouse.id;
+          s.stats.spirit = clamp(s.stats.spirit + 5, 0, 100);
+          s.stats.charm = clamp(s.stats.charm + 3, 0, 100);
+          addChronicle(
+            `เข้าพิธีสมรสกับ ${spouse.name}`,
+            `เริ่มต้นเรือนสกุลใหม่ร่วมกับ ${spouse.name} (${spouse.role}) ณ ${s.district}`,
+            'milestone'
+          );
+          return `เข้าพิธีสมรสกับ ${spouse.name} (${spouse.role}) เรียบร้อยแล้ว`;
+        },
+      },
+
+      // หมวดพักผ่อนและทำบุญ
+      {
+        id: 'act_rest_heal',
+        cat: 'rest',
+        minAge: 3,
+        daysCost: 12,
+        title: 'พักผ่อนกายใจและบำรุงร่างกาย',
+        desc: 'ฟื้นฟูเรี่ยวแรงและความสงบในจิตใจให้พร้อมรับวันเวลา',
+        effectHint: 'สุขภาพ +๗ • จิตใจ +๔ • ใช้เวลา ๑๒ วัน',
+        run(s) {
+          s.stats.health = clamp(s.stats.health + 7, 0, 100);
+          s.stats.spirit = clamp(s.stats.spirit + 4, 0, 100);
+          return 'ได้พักผ่อนอย่างเต็มที่ ร่างกายและจิตใจสดชื่นขึ้น';
+        },
+      },
+      {
+        id: 'act_make_merit',
+        cat: 'rest',
+        minAge: 5,
+        daysCost: 10,
+        title: 'ทำบุญตักบาตร ฟังธรรม และบำเพ็ญกุศล',
+        desc: 'ถวายภัตตาหารหรือทำบุญตามกำลังศรัทธาเพื่อความผาสุกทางใจ',
+        effectHint: 'จิตใจ +๗ • เสน่ห์/บารมี +๒ • (ใช้ ๒ เบี้ยหากมี)',
+        run(s) {
+          let spentText = 'ทำบุญด้วยแรงศรัทธา';
+          if (s.wealth >= 2) {
+            s.wealth -= 2;
+            spentText = 'ถวายสังฆทานและทำบุญ ๒ เบี้ย';
+          }
+          s.stats.spirit = clamp(s.stats.spirit + 7, 0, 100);
+          s.stats.charm = clamp(s.stats.charm + 2, 0, 100);
+          return `${spentText} จิตใจสงบร่มเย็นยิ่งขึ้น`;
+        },
+      },
+    ];
+
+    
+    // =========================================================================
+    // 5. คลังสถานการณ์สุ่ม (เกิดได้ปีละไม่เกิน ๓ ครั้ง และไม่ซ้ำตลอดชีวิต)
+    // =========================================================================
+    const RANDOM_SITUATIONS = [
+      // เหตุการณ์วัยเด็กและครอบครัว (เกิดได้ตั้งแต่อายุ ๐ ปีขึ้นไป)
+      {
+        id: 'ev_child_fever',
+        tag: 'ปฐมวัยและสุขภาพ',
+        minAge: 0,
+        maxAge: 10,
+        title: 'ไข้ตัวร้อนช่วงเปลี่ยนฤดู',
+        desc: 'กลางคืนอากาศแปรปรวนทำให้ร่างกายอ่อนแรงและมีไข้ บุพการีคอยเฝ้าดูแลและหายาสมุนไพร',
+        choices: [
+          {
+            label: 'ดื่มยาสมุนไพรและพักผ่อนในเรือน',
+            preview: 'สุขภาพ +๖ • จิตใจ +๒',
+            apply(s) {
+              s.stats.health = clamp(s.stats.health + 6, 0, 100);
+              s.stats.spirit = clamp(s.stats.spirit + 2, 0, 100);
+              boostParentsRelation(s, 3);
+              return 'อาการไข้ทุเลาลงเร็วเพราะได้รับการดูแลอย่างใกล้ชิด';
+            },
+          },
+          {
+            label: 'ออกไปเล่นลมหน้าเรือนทั้งที่ยังไม่หายดี',
+            preview: 'สุขภาพ -๕ • จิตใจ +๓',
+            apply(s) {
+              s.stats.health = clamp(s.stats.health - 5, 0, 100);
+              s.stats.spirit = clamp(s.stats.spirit + 3, 0, 100);
+              return 'ได้วิ่งเล่นคลายเหงา แต่ไข้กลับกำเริบเล็กน้อยในตอนค่ำ';
+            },
+          },
+        ],
+      },
+      {
+        id: 'ev_child_curious_scroll',
+        tag: 'การเรียนรู้วัยเยาว์',
+        minAge: 1,
+        maxAge: 12,
+        title: 'พบสมุดข่อยและแผ่นจารึกเก่าในเรือน',
+        desc: 'คุณสะดุดตากับตัวอักษรขอมและภาพวาดโบราณที่วางอยู่ในหีบไม้เก่า',
+        choices: [
+          {
+            label: 'ให้ผู้ใหญ่ช่วยอ่านและเล่าความหมายให้ฟัง',
+            preview: 'สติปัญญา +๕ • สายสัมพันธ์ครอบครัว +๔',
+            apply(s) {
+              s.stats.wit = clamp(s.stats.wit + 5, 0, 100);
+              boostParentsRelation(s, 4);
+              return 'เรื่องเล่าจากสมุดข่อยจุดประกายความใคร่รู้ตั้งแต่วัยเยาว์';
+            },
+          },
+          {
+            label: 'พับเล่นเป็นเรือกระดาษลอยน้ำ',
+            preview: 'จิตใจ +๔ • สติปัญญา +๑',
+            apply(s) {
+              s.stats.spirit = clamp(s.stats.spirit + 4, 0, 100);
+              s.stats.wit = clamp(s.stats.wit + 1, 0, 100);
+              return 'เรือกระดาษลอยไปตามสายน้ำอย่างสนุกสนาน';
+            },
+          },
+        ],
+      },
+      {
+        id: 'ev_river_flood_warning',
+        tag: 'ฤดูน้ำหลาก',
+        minAge: 0,
+        maxAge: 99,
+        seasons: ['rainy'],
+        title: 'น้ำเจ้าพระยาเอ่อสูงผิดปกติ',
+        desc: 'น้ำป่าไหลหลากลงมาสมทบจนระดับน้ำในลำคลองขึ้นสูง ผู้คนริมน้ำเร่งขนของขึ้นที่สูง',
+        choices: [
+          {
+            label: 'ช่วยขนย้ายข้าวของและยกพื้นเรือน',
+            preview: 'สุขภาพ +๓ • ได้รับน้ำใจ/เบี้ยเล็กน้อย',
+            apply(s) {
+              s.stats.health = clamp(s.stats.health + 3, 0, 100);
+              s.wealth += 5;
+              boostParentsRelation(s, 4);
+              return 'ช่วยกันป้องกันความเสียหายได้ทันท่วงทีและได้รับเบี้ยตอบแทน ๕ เบี้ย';
+            },
+          },
+          {
+            label: 'เฝ้าดูระดับน้ำและจดบันทึกจุดน้ำท่วม',
+            preview: 'สติปัญญา +๔ • จิตใจ +๒',
+            apply(s) {
+              s.stats.wit = clamp(s.stats.wit + 4, 0, 100);
+              s.stats.spirit = clamp(s.stats.spirit + 2, 0, 100);
+              return 'คุณสังเกตระดับน้ำอย่างละเอียดและเข้าใจวิถีน้ำของอยุธยามากขึ้น';
+            },
+          },
+        ],
+      },
+      {
+        id: 'ev_drought_well',
+        tag: 'ฤดูแล้งและแล้งน้ำ',
+        minAge: 4,
+        maxAge: 99,
+        seasons: ['summer'],
+        title: 'บ่อน้ำและลำคลองแห้งขอดในฤดูร้อน',
+        desc: 'แดดจัดต่อเนื่องหลายสัปดาห์ ทำให้น้ำจืดหายากขึ้นในชุมชน',
+        choices: [
+          {
+            label: 'แบ่งปันน้ำดื่มให้เพื่อนบ้านและผู้สูงอายุ',
+            preview: 'เสน่ห์/บารมี +๕ • จิตใจ +๔',
+            apply(s) {
+              s.stats.charm = clamp(s.stats.charm + 5, 0, 100);
+              s.stats.spirit = clamp(s.stats.spirit + 4, 0, 100);
+              return 'น้ำใจในยามแล้งทำให้ผู้คนในย่านยกย่องและรักใคร่คุณ';
+            },
+          },
+          {
+            label: 'ขุดลอกบ่อน้ำลึกขึ้นเพื่อหาตาน้ำใหม่',
+            preview: 'สุขภาพ -๒ • ได้ ๖ เบี้ย',
+            apply(s) {
+              s.stats.health = clamp(s.stats.health - 2, 0, 100);
+              s.wealth += 6;
+              return 'พบบ่อน้ำซึมใสสะอาด ได้รับรางวัลน้ำใจ ๖ เบี้ย';
+            },
+          },
+        ],
+      },
+      {
+        id: 'ev_winter_foreign_ship',
+        tag: 'ฤดูหนาวและเรือสำเภา',
+        minAge: 8,
+        maxAge: 99,
+        seasons: ['winter'],
+        title: 'เรือสำเภาต่างชาติเทียบท่าหน้าพระนคร',
+        desc: 'ลมหนาวพัดพาเรือค้าขายจากแดนไกลเข้ามาเทียบท่า สินค้าแปลกตาวางเรียงรายตามท่าเรือ',
+        choices: [
+          {
+            label: 'รับจ้างลำเลียงสินค้าและเจรจาค้าขาย',
+            preview: 'ได้ ๑๒ เบี้ย • สติปัญญา +๒',
+            apply(s) {
+              s.wealth += 12;
+              s.stats.wit = clamp(s.stats.wit + 2, 0, 100);
+              return 'ค้าขายและรับจ้างขนสินค้าได้กำไรงาม ๑๒ เบี้ย';
+            },
+          },
+          {
+            label: 'ทำความรู้จักพ่อค้าต่างถิ่นและแลกเปลี่ยนเรื่องเล่า',
+            preview: 'เสน่ห์/บารมี +๔ • มีคนรู้จักใหม่',
+            apply(s) {
+              s.stats.charm = clamp(s.stats.charm + 4, 0, 100);
+              const person = createRandomAcquaintance(s);
+              s.knownPeople.push(person);
+              return `ได้ผูกมิตรกับ ${person.name} (${person.role}) จากย่านการค้า`;
+            },
+          },
+        ],
+      },
+      {
+        id: 'ev_royal_procession',
+        tag: 'ขนบธรรมเนียมกรุงศรีฯ',
+        minAge: 5,
+        maxAge: 99,
+        title: 'ขบวนแห่และพิธีสำคัญในพระนคร',
+        desc: 'เสียงฆ้องกลองและเครื่องประโคมดังก้อง ผู้คนสองฟากฝั่งเฝ้าชมด้วยความเคารพ',
+        choices: [
+          {
+            label: 'ตั้งใจสังเกตระเบียบขบวนและยศถาบรรดาศักดิ์',
+            preview: 'สติปัญญา +๔ • เสน่ห์/บารมี +๒',
+            apply(s) {
+              s.stats.wit = clamp(s.stats.wit + 4, 0, 100);
+              s.stats.charm = clamp(s.stats.charm + 2, 0, 100);
+              return 'คุณจดจำลำดับขั้นและธรรมเนียมอยุธยาได้อย่างแม่นยำ';
+            },
+          },
+          {
+            label: 'สำรวมจิตอธิษฐานขอพรให้บ้านเมืองร่มเย็น',
+            preview: 'จิตใจ +๕ • สุขภาพ +๒',
+            apply(s) {
+              s.stats.spirit = clamp(s.stats.spirit + 5, 0, 100);
+              s.stats.health = clamp(s.stats.health + 2, 0, 100);
+              return 'ใจสงบนิ่งและเปี่ยมด้วยความหวังดีต่อบ้านเมือง';
+            },
+          },
+        ],
+      },
+      {
+        id: 'ev_chief_summons',
+        tag: 'ราชการและกรมกอง',
+        minAge: 15,
+        maxAge: 99,
+        title: 'เจ้ากรมเรียกเข้าพบเพื่อมอบหมายภารกิจเร่งด่วน',
+        desc: 'งานด่วนของกรมกองเข้ามาพร้อมกัน ผู้บังคับบัญชาต้องการผู้ที่ไว้ใจได้ไปจัดการ',
+        choices: [
+          {
+            label: 'รับอาสาทำภารกิจให้สำเร็จลุล่วง',
+            preview: 'ความดีความชอบ +๑๒ • สัมพันธ์เจ้ากรม +๘',
+            apply(s) {
+              if (!s.departmentId) s.departmentId = s.origin.defaultDept || 'dept_wiang';
+              const dept = getDepartmentById(s.departmentId);
+              const chief = ensureChiefKnownPerson(s, dept);
+              s.bureaucracyMerit += 12;
+              chief.relation = clamp(chief.relation + 8, -100, 100);
+              s.wealth += 8;
+              return `ปฏิบัติภารกิจสำเร็จงดงาม ได้รับรางวัล ๘ เบี้ย และความไว้ใจจาก${chief.name}`;
+            },
+          },
+          {
+            label: 'เสนอแนะแนวทางอย่างรอบคอบและขอแบ่งเบาภาระ',
+            preview: 'สติปัญญา +๔ • สัมพันธ์เจ้ากรม +๓',
+            apply(s) {
+              if (!s.departmentId) s.departmentId = s.origin.defaultDept || 'dept_wiang';
+              const dept = getDepartmentById(s.departmentId);
+              const chief = ensureChiefKnownPerson(s, dept);
+              s.stats.wit = clamp(s.stats.wit + 4, 0, 100);
+              chief.relation = clamp(chief.relation + 3, -100, 100);
+              return 'ข้อเสนอแนะของคุณช่วยให้การทำงานเป็นระบบยิ่งขึ้น';
+            },
+          },
+        ],
+      },
+      {
+        id: 'ev_lost_amulet_or_seal',
+        tag: 'เหตุเฉพาะหน้า',
+        minAge: 6,
+        maxAge: 99,
+        title: 'เก็บได้ห่อผ้าเก่าตกหล่นริมทางเดิน',
+        desc: 'ในห่อผ้ามีทั้งเหรียญเบี้ยและตราประทับเล็กๆ ที่ดูเหมือนของสำคัญของใครบางคน',
+        choices: [
+          {
+            label: 'สืบหาเจ้าของและส่งคืนด้วยความซื่อสัตย์',
+            preview: 'เสน่ห์/บารมี +๖ • จิตใจ +๔ • ได้เบี้ยน้ำใจ ๖ เบี้ย',
+            apply(s) {
+              s.stats.charm = clamp(s.stats.charm + 6, 0, 100);
+              s.stats.spirit = clamp(s.stats.spirit + 4, 0, 100);
+              s.wealth += 6;
+              return 'เจ้าของดีใจมากและมอบเบี้ยน้ำใจ ๖ เบี้ย พร้อมชื่อเสียงอันดี';
+            },
+          },
+          {
+            label: 'เก็บเบี้ยไว้ใช้จ่ายและซ่อนตราประทับไว้เงียบๆ',
+            preview: 'ได้ ๑๐ เบี้ย • จิตใจ -๓',
+            apply(s) {
+              s.wealth += 10;
+              s.stats.spirit = clamp(s.stats.spirit - 3, 0, 100);
+              return 'คุณเก็บเบี้ย ๑๐ เบี้ยไว้กับตัว แต่ในใจแอบกังวลเล็กน้อย';
+            },
+          },
+        ],
+      },
+      {
+        id: 'ev_monk_advice',
+        tag: 'ธรรมะและปัญญา',
+        minAge: 4,
+        maxAge: 99,
+        title: 'พระเถระชี้แนะคติเตือนใจในยามเช้า',
+        desc: 'ระหว่างเดินผ่านวัด พระผู้ใหญ่หยุดทักและกล่าวถ้อยคำสั้นๆ ที่ชวนให้ฉุกคิด',
+        choices: [
+          {
+            label: 'น้อมรับคำสอนมาพิจารณาในใจ',
+            preview: 'จิตใจ +๖ • สติปัญญา +๓',
+            apply(s) {
+              s.stats.spirit = clamp(s.stats.spirit + 6, 0, 100);
+              s.stats.wit = clamp(s.stats.wit + 3, 0, 100);
+              return 'ถ้อยคำเรียบง่ายช่วยให้จิตใจปลอดโปร่งและมองเห็นทางออกชัดเจน';
+            },
+          },
+          {
+            label: 'สอบถามเรื่องประวัติศาสตร์และสรรพวิชาเพิ่มเติม',
+            preview: 'สติปัญญา +๕ • เสน่ห์/บารมี +๒',
+            apply(s) {
+              s.stats.wit = clamp(s.stats.wit + 5, 0, 100);
+              s.stats.charm = clamp(s.stats.charm + 2, 0, 100);
+              return 'ได้รับความรู้ล้ำค่าที่หาฟังได้ยากในชีวิตประจำวัน';
+            },
+          },
+        ],
+      },
+      {
+        id: 'ev_artisan_commission',
+        tag: 'ฝีมือและการค้า',
+        minAge: 11,
+        maxAge: 99,
+        title: 'มีผู้ว่าจ้างให้ทำงานฝีมือหรือช่วยเจรจาการค้า',
+        desc: 'ผู้คนในย่านเห็นแววความสามารถของคุณจึงเอ่ยปากชวนร่วมงานพิเศษ',
+        choices: [
+          {
+            label: 'ตกลงรับงานและทุ่มเทเต็มฝีมือ',
+            preview: 'ได้ ๑๔ เบี้ย • สติปัญญา +๒',
+            apply(s) {
+              s.wealth += 14;
+              s.stats.wit = clamp(s.stats.wit + 2, 0, 100);
+              return 'งานเสร็จตามกำหนดและได้รับค่าตอบแทน ๑๔ เบี้ย';
+            },
+          },
+          {
+            label: 'ขอร่วมหุ้นแบ่งสัดส่วนแทนรับค่าจ้างก้อนเดียว',
+            preview: 'ได้ ๙ เบี้ย • เสน่ห์/บารมี +๔',
+            apply(s) {
+              s.wealth += 9;
+              s.stats.charm = clamp(s.stats.charm + 4, 0, 100);
+              return 'ได้ทั้งเบี้ย ๙ เบี้ย และสายสัมพันธ์ทางธุรกิจที่ดี';
+            },
+          },
+        ],
+      },
+      {
+        id: 'ev_family_gathering',
+        tag: 'สายใยครอบครัว',
+        minAge: 2,
+        maxAge: 99,
+        title: 'วันรวมญาติและล้อมวงกินข้าวพร้อมหน้า',
+        desc: 'คนในครอบครัวและคนใกล้ชิดมารวมตัวกันพูดคุยถามไถ่สารทุกข์สุกดิบ',
+        choices: [
+          {
+            label: 'ช่วยจัดสำรับและรับฟังเรื่องเล่าของคนในบ้าน',
+            preview: 'สายสัมพันธ์คนรู้จัก +๖ • จิตใจ +๔',
+            apply(s) {
+              s.stats.spirit = clamp(s.stats.spirit + 4, 0, 100);
+              s.knownPeople.forEach((p) => {
+                if (p.alive && (p.isFamily || p.relation >= 0)) {
+                  p.relation = clamp(p.relation + 6, -100, 100);
+                }
+              });
+              return 'บรรยากาศอบอุ่นทำให้สายใยคนในเรือนแน่นแฟ้นยิ่งขึ้น';
+            },
+          },
+          {
+            label: 'เล่าเรื่องราวการพบเห็นในกรุงศรีอยุธยาให้ทุกคนฟัง',
+            preview: 'เสน่ห์/บารมี +๔ • สายสัมพันธ์คนรู้จัก +๔',
+            apply(s) {
+              s.stats.charm = clamp(s.stats.charm + 4, 0, 100);
+              s.knownPeople.forEach((p) => {
+                if (p.alive) p.relation = clamp(p.relation + 4, -100, 100);
+              });
+              return 'ทุกคนฟังเรื่องเล่าของคุณอย่างเพลิดเพลินและอบอุ่นใจ';
+            },
+          },
+        ],
+      },
+    ];
+
+    
+    // =========================================================================
+    // 6. ตัวแปรสถานะเกมและระบบบันทึกปลอดภัย (Safe Storage)
+    // =========================================================================
+    const SAVE_PREFIX = 'ayutthaya_cozy_save_';
+    const AUTO_SAVE_KEY = `${SAVE_PREFIX}autosave`;
+    const SLOT_KEYS = [`${SAVE_PREFIX}slot_1`, `${SAVE_PREFIX}slot_2`, `${SAVE_PREFIX}slot_3`];
+    const memoryStore = new Map();
+    let pendingConfirmFn = null;
+
+    function safeGetItem(key) {
+      try {
+        if (window.localStorage) {
+          return window.localStorage.getItem(key);
+        }
+      } catch (_) {}
+      return memoryStore.has(key) ? memoryStore.get(key) : null;
+    }
+
+    function safeSetItem(key, val) {
+      try {
+        if (window.localStorage) {
+          window.localStorage.setItem(key, val);
+          return true;
+        }
+      } catch (_) {}
+      memoryStore.set(key, val);
+      return true;
+    }
+
+    function safeRemoveItem(key) {
+      try {
+        if (window.localStorage) {
+          window.localStorage.removeItem(key);
+        }
+      } catch (_) {}
+      memoryStore.delete(key);
+    }
+
+    function clamp(n, min, max) {
+      return Math.max(min, Math.min(max, n));
+    }
+
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function getDepartmentById(id) {
+      return DEPARTMENTS.find((d) => d.id === id) || null;
+    }
+
+    function getCurrentRankObj(s) {
+      return OFFICIAL_RANKS[clamp(s.rankLevel || 0, 0, OFFICIAL_RANKS.length - 1)];
+    }
+
+    let gameState = null;
+    let timeSpeed = 1; // 0 = หยุด, 1 = ๑ วัน/วิ., 2, 4, 10
+    let lastFrameTime = 0;
+    let tickAccumulator = 0;
+    let activeCategory = 'study';
+    let logFilter = 'all';
+    let uidCounter = 1;
+
+    function nextId(prefix = 'id') {
+      uidCounter += 1;
+      return `${prefix}_${uidCounter}_${Math.random().toString(36).slice(2, 7)}`;
+    }
+
+    function showToast(message, tone = 'info') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      const toneClass =
+        tone === 'good'
+          ? 'bg-warm-sage text-white'
+          : tone === 'warn'
+          ? 'bg-warm-rose text-white'
+          : 'bg-warm-ink text-warm-bg';
+      const el = document.createElement('div');
+      el.className = `modal-pop pointer-events-auto rounded-2xl px-4 py-2.5 text-xs font-medium shadow-md ${toneClass}`;
+      el.textContent = message;
+      container.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.25s ease';
+        setTimeout(() => el.remove(), 260);
+      }, 2800);
+    }
+
+    function openConfirm(title, message, onConfirm) {
+      pendingConfirmFn = onConfirm;
+      document.getElementById('confirmTitle').textContent = title;
+      document.getElementById('confirmMessage').textContent = message;
+      const modal = document.getElementById('confirmModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeConfirm() {
+      pendingConfirmFn = null;
+      const modal = document.getElementById('confirmModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // =========================================================================
+    // 7. การสุ่มกำเนิด บุพการี คนรู้จัก และความสัมพันธ์เฉพาะบุคคลที่รู้จัก
+    // =========================================================================
+    function generateParentName(originId, gender, avoidName = '') {
+      let pool;
+      if (FOREIGN_GIVEN_NAMES[originId]) {
+        pool = FOREIGN_GIVEN_NAMES[originId];
+      } else {
+        pool = gender === 'male' ? THAI_MALE_NAMES : THAI_FEMALE_NAMES;
+      }
+      const candidates = pool.filter((n) => n !== avoidName);
+      const chosen = pickRandom(candidates.length ? candidates : pool);
+      const prefix =
+        originId === 'foreign_jp'
+          ? gender === 'male'
+            ? 'นาย'
+            : 'นาง'
+          : originId === 'foreign_nl'
+          ? gender === 'male'
+            ? 'มินฮีร์ '
+            : 'มาดาม '
+          : originId === 'foreign_pt'
+          ? gender === 'male'
+            ? 'ดอน '
+            : 'โดญา '
+          : gender === 'male'
+          ? 'นาย'
+          : 'นาง';
+      return `${prefix}${chosen}`;
+    }
+
+    function createSpousePerson(s) {
+      const spouseGender = s.gender === 'male' ? 'female' : 'male';
+      const sameOrigin = Math.random() < 0.65;
+      const spOrigin = sameOrigin ? s.origin : pickRandom(SOCIAL_ORIGINS);
+      const name = generateParentName(spOrigin.id, spouseGender, s.name);
+      return {
+        id: nextId('person'),
+        name,
+        role: `คู่สมรส (${spOrigin.classLabel})`,
+        isFamily: true,
+        isChief: false,
+        alive: true,
+        relation: 45,
+      };
+    }
+
+    function createRandomAcquaintance(s) {
+      const g = Math.random() < 0.5 ? 'male' : 'female';
+      const orig = pickRandom(SOCIAL_ORIGINS);
+      const name = generateParentName(orig.id, g, s.name);
+      const roles = [
+        `สหายย่าน ${s.district}`,
+        `ผู้รู้แห่ง${orig.classLabel}`,
+        'สหายร่วมเรียนรู้',
+        'มิตรสหายริมแม่น้ำ',
+      ];
+      return {
+        id: nextId('person'),
+        name,
+        role: pickRandom(roles),
+        isFamily: false,
+        isChief: false,
+        alive: true,
+        relation: 18,
+      };
+    }
+
+    function ensureChiefKnownPerson(s, dept) {
+      if (!dept) return null;
+      let existing = s.knownPeople.find((p) => p.isChief && p.deptId === dept.id);
+      if (!existing) {
+        existing = {
+          id: nextId('chief'),
+          name: `${dept.chiefName} (${dept.chiefTitle})`,
+          role: `เจ้ากรมแห่ง${dept.name}`,
+          deptId: dept.id,
+          isFamily: false,
+          isChief: true,
+          alive: true,
+          relation: 10,
+        };
+        s.knownPeople.push(existing);
+      }
+      return existing;
+    }
+
+    function boostParentsRelation(s, delta) {
+      s.knownPeople.forEach((p) => {
+        if (p.alive && p.isFamily && p.isParent) {
+          p.relation = clamp(p.relation + delta, -100, 100);
+        }
+      });
+    }
+
+    function createNewRandomLife(generation = 1, inheritedData = null) {
+      const origin = inheritedData?.origin || pickRandom(SOCIAL_ORIGINS);
+      const gender = Math.random() < 0.5 ? 'male' : 'female';
+      const genderLabel = gender === 'male' ? 'ชาย' : 'หญิง';
+      const name = generateParentName(origin.id, gender);
+      const district = inheritedData?.district || pickRandom(origin.districts);
+
+      // สุ่มปีเกิดในช่วงยุคกลางของกรุงศรีอยุธยา (พ.ศ. ๒๐๓๑–๒๒๓๑)
+      const birthYearBE = inheritedData?.birthYearBE || Math.floor(2031 + Math.random() * 195);
+      const birthMonth = Math.floor(1 + Math.random() * 12);
+      const birthDay = Math.floor(1 + Math.random() * getDaysInSolarMonth(birthYearBE, birthMonth));
+
+      const fatherName = generateParentName(origin.id, 'male', name);
+      const motherName = generateParentName(origin.id, 'female', name);
+      const fatherRole = `${pickRandom(origin.parentTitles)} • ${origin.classLabel}`;
+      const motherRole = `มารดาผู้ให้กำเนิด • ${origin.classLabel}`;
+
+      const knownPeople = inheritedData?.knownPeople
+        ? inheritedData.knownPeople.map((p) => ({ ...p, alive: true }))
+        : [
+            {
+              id: nextId('parent'),
+              name: fatherName,
+              role: fatherRole,
+              isFamily: true,
+              isParent: true,
+              isChief: false,
+              alive: true,
+              relation: 42,
+            },
+            {
+              id: nextId('parent'),
+              name: motherName,
+              role: motherRole,
+              isFamily: true,
+              isParent: true,
+              isChief: false,
+              alive: true,
+              relation: 48,
+            },
+          ];
+
+      const stats = {
+        health: clamp(origin.baseStats.health + Math.floor(Math.random() * 9 - 4), 25, 95),
+        spirit: clamp(origin.baseStats.spirit + Math.floor(Math.random() * 9 - 4), 25, 95),
+        wit: clamp(origin.baseStats.wit + Math.floor(Math.random() * 9 - 4), 25, 95),
+        charm: clamp(origin.baseStats.charm + Math.floor(Math.random() * 9 - 4), 25, 95),
+      };
+
+      const startWealth = inheritedData?.inheritedWealth ? Math.max(0, inheritedData.inheritedWealth) : 0;
+
+      gameState = {
+        alive: true,
+        causeOfDeath: '',
+        generation,
+        inheritedFrom: inheritedData?.fromName || null,
+        name,
+        gender,
+        genderLabel,
+        origin,
+        district,
+        parentsInfo: {
+          fatherName,
+          fatherRole,
+          motherName,
+          motherRole,
+          originSummary: origin.originSummary,
+        },
+        birthYearBE,
+        birthMonth,
+        birthDay,
+        yearBE: birthYearBE,
+        month: birthMonth,
+        day: birthDay,
+        totalDaysElapsed: 0,
+        ageYears: 0,
+        ageMonths: 0,
+        ageDays: 0,
+        wealth: startWealth,
+        rankLevel: 0,
+        sakdina: OFFICIAL_RANKS[0].sakdina,
+        departmentId: null,
+        bureaucracyMerit: 0,
+        stats,
+        traits: [origin.trait],
+        inventory: [],
+        knownPeople,
+        spouseId: null,
+        children: [],
+        usedEventIds: new Set(),
+        eventsThisYear: 0,
+        currentEventYear: birthYearBE,
+        cooldownDays: 0,
+        activeSituation: null,
+        chronicle: [],
+      };
+
+      // หากสืบตระกูลและสังกัดกรมของบิดามารดา ให้ผูกกับเจ้ากรมด้วย
+      if (inheritedData?.departmentId) {
+        gameState.departmentId = inheritedData.departmentId;
+        const dept = getDepartmentById(gameState.departmentId);
+        ensureChiefKnownPerson(gameState, dept);
+      }
+
+      if (generation > 1 && inheritedData?.fromName) {
+        addChronicle(
+          `สืบตระกูลต่อจาก ${inheritedData.fromName} (รุ่นที่ ${toThaiDigits(generation)})`,
+          `${name} (${genderLabel}) ลืมตาดูโลก ณ ${district} รับมรดกคงเหลือ ${toThaiDigits(startWealth)} เบี้ย และสายสัมพันธ์เดิม`,
+          'milestone'
+        );
+      } else {
+        addChronicle(
+          `ลืมตาดูโลก ณ กรุงศรีอยุธยา (${formatSolarDate(gameState)})`,
+          `เกิดเป็น ${name} (${genderLabel}) ชนชั้น${origin.classLabel} ณ ${district} เริ่มต้นที่อายุ ๐ ปี และทรัพย์สิน ๐ เบี้ย`,
+          'milestone'
+        );
+      }
+
+      timeSpeed = 1;
+      tickAccumulator = 0;
+      renderAll();
+    }
+
+    function addChronicle(title, detail, kind = 'life') {
+      if (!gameState) return;
+      gameState.chronicle.unshift({
+        id: nextId('log'),
+        dateText: formatSolarDate(gameState),
+        ageText: `${toThaiDigits(gameState.ageYears)} ปี`,
+        title,
+        detail,
+        kind,
+      });
+      if (gameState.chronicle.length > 180) {
+        gameState.chronicle.length = 180;
+      }
+        }
+
+    
+    // =========================================================================
+    // 8. การเดินเวลา ปฏิทิน ฤดูกาล และสถานการณ์สุ่ม (ปีละไม่เกิน ๓ ครั้ง ไม่ซ้ำ)
+    // =========================================================================
+    function recalculateAge() {
+      const s = gameState;
+      let y = s.yearBE - s.birthYearBE;
+      let m = s.month - s.birthMonth;
+      let d = s.day - s.birthDay;
+      if (d < 0) {
+        const prevM = s.month === 1 ? 12 : s.month - 1;
+        const prevY = s.month === 1 ? s.yearBE - 1 : s.yearBE;
+        d += getDaysInSolarMonth(prevY, prevM);
+        m -= 1;
+      }
+      if (m < 0) {
+        m += 12;
+        y -= 1;
+      }
+      s.ageYears = Math.max(0, y);
+      s.ageMonths = Math.max(0, m);
+      s.ageDays = Math.max(0, d);
+    }
+
+    function maybeTriggerRandomSituation() {
+      const s = gameState;
+      if (!s || !s.alive || s.activeSituation) return;
+
+      // รีเซ็ตโควตาเหตุการณ์รายปีเมื่อขึ้นปี พ.ศ. ใหม่
+      if (s.currentEventYear !== s.yearBE) {
+        s.currentEventYear = s.yearBE;
+        s.eventsThisYear = 0;
+      }
+
+      // จำกัดไม่เกิน ๓ ครั้งต่อปี
+      if (s.eventsThisYear >= 3) return;
+
+      // กระจายโอกาสเกิดเหตุการณ์ให้เหมาะกับโควตาปีละไม่เกิน ๓ ครั้ง
+      const triggerChance = s.eventsThisYear === 0 ? 0.022 : s.eventsThisYear === 1 ? 0.016 : 0.012;
+      if (Math.random() > triggerChance) return;
+
+      const currentSeasonKey = getSeasonByMonth(s.month).key;
+      const candidates = RANDOM_SITUATIONS.filter((ev) => {
+        if (s.usedEventIds.has(ev.id)) return false;
+        if (s.ageYears < ev.minAge || s.ageYears > ev.maxAge) return false;
+        if (Array.isArray(ev.seasons) && !ev.seasons.includes(currentSeasonKey)) return false;
+        return true;
+      });
+
+      if (!candidates.length) return;
+
+      const chosen = pickRandom(candidates);
+      s.usedEventIds.add(chosen.id);
+      s.eventsThisYear += 1;
+      s.activeSituation = chosen;
+
+      // หยุดเวลาชั่วคราวเพื่อให้ผู้เล่นตัดสินใจตอบสถานการณ์สุ่มได้อย่างสบาย
+      timeSpeed = 0;
+      SoundEngine.eventAlert();
+      showToast('เกิดสถานการณ์สุ่มขึ้นในชีวิต!', 'info');
+    }
+
+    function checkChildBirthAndLifeEvents() {
+      const s = gameState;
+      // หากมีคู่สมรสและอายุระหว่าง ๒๐–๔๕ ปี มีโอกาสมีบุตรธิดา
+      if (s.spouseId && s.ageYears >= 20 && s.ageYears <= 45 && s.children.length < 4) {
+        if (Math.random() < 0.0045) {
+          const childGender = Math.random() < 0.5 ? 'male' : 'female';
+          const childName = generateParentName(s.origin.id, childGender, s.name);
+          const child = {
+            id: nextId('child'),
+            name: childName,
+            genderLabel: childGender === 'male' ? 'บุตรชาย' : 'บุตรสาว',
+            birthYearBE: s.yearBE,
+            alive: true,
+          };
+          s.children.push(child);
+          s.knownPeople.push({
+            id: nextId('fam'),
+            name: childName,
+            role: `${child.genderLabel}ของเรือนสกุล`,
+            isFamily: true,
+            isChief: false,
+            alive: true,
+            relation: 55,
+          });
+          SoundEngine.milestone();
+          addChronicle(
+            `ให้กำเนิด${child.genderLabel}ชื่อ "${childName}"`,
+            `เรือนสกุลของ ${s.name} มีทายาทเพิ่มอีกหนึ่งคน ณ ${s.district}`,
+            'milestone'
+          );
+          showToast(`ยินดีด้วย! มี${child.genderLabel}ชื่อ "${childName}"`, 'good');
+        }
+      }
+
+      // ผลของฤดูกาลต่อสุขภาพเล็กน้อย
+      const season = getSeasonByMonth(s.month);
+      s.stats.health = clamp(s.stats.health + season.healthDrift, 0, 100);
+
+      // ตรวจสอบการสิ้นอายุขัยตามสุขภาพและวัยชรา
+      let deathReason = '';
+      if (s.stats.health <= 0) {
+        deathReason = 'ร่างกายทรุดโทรมและเจ็บไข้เกินเยียวยาในกรุงศรีอยุธยา';
+      } else if (s.ageYears >= 58) {
+        const oldAgeRisk = (s.ageYears - 57) * 0.0038 + (100 - s.stats.health) * 0.00004;
+        if (Math.random() < oldAgeRisk) {
+          deathReason = `ล่วงเข้าวัยชราอายุ ${toThaiDigits(s.ageYears)} ปี อย่างสงบตามอายุขัย`;
+        }
+      }
+
+      if (deathReason) {
+        triggerDeath(deathReason);
+      }
+    }
+
+    function advanceOneDay() {
+      const s = gameState;
+      if (!s || !s.alive) return;
+
+      const prevYear = s.yearBE;
+      const prevMonth = s.month;
+      const prevAgeYears = s.ageYears;
+
+      s.totalDaysElapsed += 1;
+      s.day += 1;
+
+      const maxDay = getDaysInSolarMonth(s.yearBE, s.month);
+      if (s.day > maxDay) {
+        s.day = 1;
+        s.month += 1;
+        if (s.month > 12) {
+          s.month = 1;
+          s.yearBE += 1;
+        }
+      }
+
+      if (s.cooldownDays > 0) {
+        s.cooldownDays = Math.max(0, s.cooldownDays - 1);
+      }
+
+      recalculateAge();
+
+      // เมื่ออายุครบ ๓ ขวบบริบูรณ์ แจ้งปลดล็อกกิจกรรมอิสระ
+      if (prevAgeYears < 3 && s.ageYears >= 3) {
+        SoundEngine.milestone();
+        addChronicle(
+          'ย่างเข้าสู่วัยสามขวบ ปลดล็อกการดำเนินชีวิตอิสระ',
+          'เติบโตพอที่จะเรียนรู้ ฝึกฝน และเลือกกิจวัตรต่างๆ ได้ด้วยตนเองแล้ว',
+          'milestone'
+        );
+        showToast('อายุครบ ๓ ขวบแล้ว! ปลดล็อกกิจกรรมอิสระ', 'good');
+      }
+
+      // เมื่อขึ้นปี พ.ศ. ใหม่ บันทึกอัตโนมัติและจ่ายเบี้ยประจำปีหากมีบรรดาศักดิ์
+      if (s.yearBE !== prevYear && s.alive) {
+        const rankObj = getCurrentRankObj(s);
+        if (rankObj.stipend > 0) {
+          s.wealth += rankObj.stipend;
+          addChronicle(
+            `ขึ้นปีใหม่ พ.ศ. ${toThaiDigits(s.yearBE)} รับเบี้ยประจำปี`,
+            `ได้รับเบี้ยตามบรรดาศักดิ์ "${rankObj.title}" จำนวน ${toThaiDigits(rankObj.stipend)} เบี้ย`,
+            'milestone'
+          );
+        }
+        saveSnapshot(AUTO_SAVE_KEY, `บันทึกอัตโนมัติ (พ.ศ. ${toThaiDigits(s.yearBE)})`, true);
+      }
+
+      // หากเปลี่ยนเดือน แจ้งการเปลี่ยนฤดูตามเดือนเมื่อฤดูเปลี่ยน
+      if (s.month !== prevMonth) {
+        const oldSeason = getSeasonByMonth(prevMonth);
+        const newSeason = getSeasonByMonth(s.month);
+        if (oldSeason.key !== newSeason.key) {
+          addChronicle(
+            `เข้าสู่${newSeason.name}`,
+            `ย่างเข้าเดือน${SOLAR_MONTHS[s.month - 1].name} — ${newSeason.shortEffect}`,
+            'life'
+          );
+        }
+      }
+
+      checkChildBirthAndLifeEvents();
+      if (s.alive) {
+        maybeTriggerRandomSituation();
+      }
+    }
+
+    function skipCurrentLunarMonth() {
+      const s = gameState;
+      if (!s || !s.alive) return;
+      if (s.activeSituation) {
+        showToast('กรุณาตอบสถานการณ์สุ่มที่ค้างอยู่ก่อน', 'warn');
+        return;
+      }
+      timeSpeed = 0;
+      const startLunar = computeThaiLunar(s.yearBE, s.month, s.day, s.totalDaysElapsed);
+      let safety = 0;
+      while (s.alive && !s.activeSituation && safety < 45) {
+        advanceOneDay();
+        safety += 1;
+        const nowLunar = computeThaiLunar(s.yearBE, s.month, s.day, s.totalDaysElapsed);
+        if (nowLunar.lunarMonthName !== startLunar.lunarMonthName) {
+          break;
+        }
+      }
+      addChronicle(
+        `ข้ามเดือนจันทรคติ (${startLunar.lunarMonthName})`,
+        `ก้าวสู่ ${computeThaiLunar(s.yearBE, s.month, s.day, s.totalDaysElapsed).formattedText} (${formatSolarDate(s)})`,
+        'life'
+      );
+      renderAll();
+    }
+
+    function skipCurrentYear() {
+      const s = gameState;
+      if (!s || !s.alive) return;
+      if (s.activeSituation) {
+        showToast('กรุณาตอบสถานการณ์สุ่มที่ค้างอยู่ก่อน', 'warn');
+        return;
+      }
+      timeSpeed = 0;
+      const targetYear = s.yearBE + 1;
+      let safety = 0;
+      while (s.alive && !s.activeSituation && s.yearBE < targetYear && safety < 400) {
+        advanceOneDay();
+        safety += 1;
+      }
+      renderAll();
+    }
+
+    function resolveSituationChoice(choiceIdx) {
+      const s = gameState;
+      if (!s || !s.activeSituation) return;
+      const ev = s.activeSituation;
+      const choice = ev.choices[choiceIdx];
+      if (!choice) return;
+
+      const outcomeText = choice.apply(s);
+      addChronicle(
+        `สถานการณ์: ${ev.title}`,
+        `เลือก "${choice.label}" — ${outcomeText}`,
+        'event'
+      );
+      s.activeSituation = null;
+      timeSpeed = 1;
+      tickAccumulator = 0;
+      SoundEngine.softClick();
+      renderAll();
+    }
+
+    function runActivity(actId) {
+      const s = gameState;
+      if (!s || !s.alive) return;
+
+      if (s.activeSituation) {
+        showToast('กรุณาตอบสถานการณ์สุ่มก่อนดำเนินกิจกรรมอื่น', 'warn');
+        return;
+      }
+
+      if (s.ageYears < 3) {
+        showToast('อายุยังไม่ถึง ๓ ขวบ ยังไม่สามารถเลือกกิจกรรมอิสระได้', 'warn');
+        return;
+      }
+
+      if (s.cooldownDays > 0) {
+        showToast(`เพิ่งดำเนินกิจวัตรไป รออีก ${toThaiDigits(s.cooldownDays)} วัน`, 'info');
+        return;
+      }
+
+      const act = ACTIVITIES.find((a) => a.id === actId);
+      if (!act) return;
+      if (s.ageYears < act.minAge) {
+        showToast(`ต้องมีอายุอย่างน้อย ${toThaiDigits(act.minAge)} ปีจึงจะทำกิจกรรมนี้ได้`, 'warn');
+        return;
+      }
+
+      const prevSpeed = timeSpeed;
+      timeSpeed = 0;
+      const resultMsg = act.run(s);
+      s.cooldownDays = 5;
+
+      let steps = 0;
+      while (s.alive && !s.activeSituation && steps < act.daysCost) {
+        advanceOneDay();
+        steps += 1;
+      }
+
+      addChronicle(act.title, `${resultMsg} (ผ่านไป ${toThaiDigits(steps)} วัน)`, 'life');
+      if (s.alive && !s.activeSituation) {
+        timeSpeed = prevSpeed > 0 ? prevSpeed : 1;
+      }
+      SoundEngine.softClick();
+      renderAll();
+    }
+
+    function triggerDeath(reason) {
+      const s = gameState;
+      s.alive = false;
+      s.causeOfDeath = reason;
+      s.activeSituation = null;
+      timeSpeed = 0;
+      addChronicle(
+        `สิ้นสุดชีวิต ณ ${formatSolarDate(s)} (อายุ ${toThaiDigits(s.ageYears)} ปี)`,
+        reason,
+        'milestone'
+      );
+      renderAll();
+      openDeathModal();
+    }
+
+    function inheritAsChild(childId) {
+      const s = gameState;
+      if (!s) return;
+      const child = s.children.find((c) => c.id === childId && c.alive);
+      if (!child) return;
+
+      // หักอากร/ค่าจัดงานศพ ๑๕% แล้วส่งต่อมรดกให้ทายาท
+      const netEstate = Math.max(0, Math.floor(s.wealth * 0.85));
+      const livingAcquaintances = s.knownPeople.filter((p) => p.alive && p.id !== child.id);
+
+      closeDeathModal();
+      createNewRandomLife(s.generation + 1, {
+        fromName: s.name,
+        origin: s.origin,
+        district: s.district,
+        birthYearBE: s.yearBE,
+        departmentId: s.departmentId,
+        inheritedWealth: netEstate,
+        knownPeople: livingAcquaintances,
+      });
+      saveSnapshot(AUTO_SAVE_KEY, `สืบตระกูลรุ่นที่ ${toThaiDigits(s.generation)}`, true);
+  }
+
+    
+    // =========================================================================
+    // 9. ระบบบันทึกและโหลดชะตาชีวิต (Save / Load / Auto-Save / JSON)
+    // =========================================================================
+    function buildSavePayload(s, label) {
+      const rankObj = getCurrentRankObj(s);
+      const deptObj = getDepartmentById(s.departmentId);
+      return {
+        app: 'ayutthaya_life_cozy',
+        version: 1,
+        savedAtISO: new Date().toISOString(),
+        label,
+        summary: {
+          name: s.name,
+          generation: s.generation,
+          ageYears: s.ageYears,
+          yearBE: s.yearBE,
+          dateText: formatSolarDate(s),
+          wealth: s.wealth,
+          rankTitle: rankObj.title,
+          sakdina: s.sakdina,
+          deptName: deptObj ? deptObj.name : 'ยังไม่สังกัดกรมกอง',
+          alive: s.alive,
+        },
+        state: {
+          ...s,
+          usedEventIds: Array.from(s.usedEventIds || []),
+          activeSituation: null,
+        },
+      };
+    }
+
+    function isValidSavePayload(obj) {
+      return (
+        obj &&
+        typeof obj === 'object' &&
+        obj.state &&
+        typeof obj.state.name === 'string' &&
+        typeof obj.state.yearBE === 'number' &&
+        obj.state.stats &&
+        typeof obj.state.stats === 'object'
+      );
+    }
+
+    function readSave(key) {
+      try {
+        const raw = safeGetItem(key);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        return isValidSavePayload(parsed) ? parsed : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function saveSnapshot(key, label = 'บันทึกด้วยตนเอง', silent = false) {
+      if (!gameState) return false;
+      try {
+        const payload = buildSavePayload(gameState, label);
+        safeSetItem(key, JSON.stringify(payload));
+        if (!silent) {
+          SoundEngine.softClick();
+          showToast('บันทึกชะตาชีวิตเรียบร้อยแล้ว', 'good');
+          renderSaveModal();
+        }
+        return true;
+      } catch (_) {
+        if (!silent) {
+          showToast('ไม่สามารถบันทึกข้อมูลได้ กรุณาลองส่งออกเป็นไฟล์ .json', 'warn');
+        }
+        return false;
+      }
+    }
+
+    function loadSnapshot(payload, sourceName = 'ช่องบันทึก') {
+      if (!isValidSavePayload(payload)) {
+        showToast('ข้อมูลบันทึกไม่ถูกต้องหรือไม่สมบูรณ์', 'warn');
+        return false;
+      }
+      try {
+        const raw = payload.state;
+        const matchedOrigin =
+          SOCIAL_ORIGINS.find((o) => o.id === raw.origin?.id) || raw.origin || SOCIAL_ORIGINS[0];
+
+        gameState = {
+          ...raw,
+          origin: { ...matchedOrigin },
+          stats: {
+            health: clamp(Number(raw.stats.health) || 50, 0, 100),
+            spirit: clamp(Number(raw.stats.spirit) || 50, 0, 100),
+            wit: clamp(Number(raw.stats.wit) || 50, 0, 100),
+            charm: clamp(Number(raw.stats.charm) || 50, 0, 100),
+          },
+          traits: Array.isArray(raw.traits) ? [...raw.traits] : [],
+          inventory: Array.isArray(raw.inventory) ? [...raw.inventory] : [],
+          knownPeople: Array.isArray(raw.knownPeople) ? raw.knownPeople.map((p) => ({ ...p })) : [],
+          children: Array.isArray(raw.children) ? raw.children.map((c) => ({ ...c })) : [],
+          usedEventIds: new Set(Array.isArray(raw.usedEventIds) ? raw.usedEventIds : []),
+          chronicle: Array.isArray(raw.chronicle) ? raw.chronicle.map((c) => ({ ...c })) : [],
+          activeSituation: null,
+        };
+
+        timeSpeed = 0;
+        tickAccumulator = 0;
+        closeSaveModal();
+        closeDeathModal();
+        addChronicle(
+          `โหลดชะตาจาก${sourceName}`,
+          `กู้คืนชะตาของ ${gameState.name} (${formatSolarDate(gameState)}) • หยุดเวลาชั่วคราว`,
+          'milestone'
+        );
+        renderAll();
+        if (!gameState.alive) {
+          openDeathModal();
+        }
+        showToast(`โหลดชะตาของ "${gameState.name}" แล้ว`, 'good');
+        return true;
+      } catch (_) {
+        showToast('เกิดข้อผิดพลาดขณะโหลดข้อมูลบันทึก', 'warn');
+        return false;
+      }
+    }
+
+    function exportSaveJson() {
+      if (!gameState) return;
+      try {
+        const payload = buildSavePayload(gameState, 'ส่งออกไฟล์สำรอง');
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `ayutthaya_life_BE${gameState.yearBE}.json`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        showToast('ส่งออกไฟล์บันทึก (.json) สำเร็จ', 'good');
+      } catch (_) {
+        showToast('ไม่สามารถส่งออกไฟล์ .json ได้', 'warn');
+      }
+    }
+
+    function importSaveJsonFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        try {
+          const parsed = JSON.parse(String(ev.target?.result || ''));
+          loadSnapshot(parsed, `ไฟล์ ${file.name}`);
+        } catch (_) {
+          showToast('ไฟล์ .json ไม่ถูกต้องหรืออ่านไม่ได้', 'warn');
+        }
+      };
+      reader.readAsText(file, 'utf-8');
+    }
+
+    function openSaveModal() {
+      timeSpeed = 0;
+      renderSaveModal();
+      const modal = document.getElementById('saveModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeSaveModal() {
+      const modal = document.getElementById('saveModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function renderSaveCardHtml(title, key, slotIndex) {
+      const saved = readSave(key);
+      const isManual = slotIndex !== null;
+      if (!saved) {
+        return `
+          <div class="cozy-inset rounded-2xl p-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+            <div>
+              <div class="text-xs font-bold text-warm-ink">${title}</div>
+              <div class="text-xs text-warm-sub">ยังไม่มีข้อมูลบันทึกในช่องนี้</div>
+            </div>
+            ${
+              isManual
+                ? `<button type="button" data-save-slot="${slotIndex}" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-warm-sage hover:bg-[#416454] text-white transition cursor-pointer">บันทึกที่นี่</button>`
+                : ''
+            }
+          </div>
+        `;
+      }
+      const sum = saved.summary;
+      return `
+        <div class="cozy-inset rounded-2xl p-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div class="space-y-0.5">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="text-xs font-bold text-warm-ink">${title}</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-full bg-warm-goldSoft text-warm-gold font-semibold">
+                รุ่นที่ ${toThaiDigits(sum.generation)} • อายุ ${toThaiDigits(sum.ageYears)} ปี
+              </span>
+            </div>
+            <div class="text-xs font-semibold text-warm-slate">
+              ${sum.name} • ${sum.rankTitle} • ${toThaiDigits(sum.wealth)} เบี้ย
+            </div>
+            <div class="text-[11px] text-warm-sub">
+              ${sum.dateText} • ${sum.deptName}
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-1.5 shrink-0">
+            <button type="button" data-load-key="${key}" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-warm-slate hover:bg-[#3d596d] text-white transition cursor-pointer">
+              โหลด
+            </button>
+            ${
+              isManual
+                ? `<button type="button" data-save-slot="${slotIndex}" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-warm-sage hover:bg-[#416454] text-white transition cursor-pointer">บันทึกทับ</button>`
+                : ''
+            }
+            <button type="button" data-delete-key="${key}" data-delete-title="${title}" class="px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-warm-roseSoft hover:bg-[#edd4d0] text-warm-rose transition cursor-pointer">
+              ลบ
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSaveModal() {
+      document.getElementById('autoSaveSlotCard').innerHTML = renderSaveCardHtml(
+        'บันทึกอัตโนมัติ (Auto-Save เมื่อขึ้นปี พ.ศ. ใหม่หรือสืบตระกูล)',
+        AUTO_SAVE_KEY,
+        null
+      );
+      document.getElementById('manualSaveSlotsBox').innerHTML = SLOT_KEYS.map((k, idx) =>
+        renderSaveCardHtml(`ช่องบันทึกที่ ${toThaiDigits(idx + 1)}`, k, idx)
+      ).join('');
+
+      document.querySelectorAll('[data-save-slot]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.getAttribute('data-save-slot'));
+          const key = SLOT_KEYS[idx];
+          const existing = readSave(key);
+          if (existing) {
+            openConfirm(
+              `ยืนยันการบันทึกทับช่องที่ ${toThaiDigits(idx + 1)}`,
+              `ข้อมูลเดิมของ "${existing.summary.name}" จะถูกแทนที่ด้วยชะตาปัจจุบัน ต้องการดำเนินการต่อหรือไม่?`,
+              () => saveSnapshot(key, `ช่องบันทึกที่ ${toThaiDigits(idx + 1)}`)
+            );
+          } else {
+            saveSnapshot(key, `ช่องบันทึกที่ ${toThaiDigits(idx + 1)}`);
+          }
+        });
+      });
+
+      document.querySelectorAll('[data-load-key]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const key = btn.getAttribute('data-load-key');
+          const data = readSave(key);
+          if (data) loadSnapshot(data, 'ช่องบันทึก');
+        });
+      });
+
+      document.querySelectorAll('[data-delete-key]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const key = btn.getAttribute('data-delete-key');
+          const title = btn.getAttribute('data-delete-title');
+          openConfirm(
+            `ยืนยันการลบ${title}`,
+            `ต้องการลบข้อมูลใน${title}ออกจากเครื่องหรือไม่?`,
+            () => {
+              safeRemoveItem(key);
+              renderSaveModal();
+              showToast(`ลบ${title}แล้ว`, 'info');
+            }
+          );
+        });
+      });
+    }
+
+    function openDeathModal() {
+      const s = gameState;
+      if (!s) return;
+      const rankObj = getCurrentRankObj(s);
+      document.getElementById('deathTitle').textContent = `${s.name} — ปิดฉากหนึ่งชีวิต`;
+      document.getElementById('deathSummaryText').textContent =
+        `${s.causeOfDeath} ณ ${s.district} (${formatSolarDate(s)})`;
+
+      document.getElementById('deathStatsBox').innerHTML = `
+        <div><strong>รุ่นตระกูล:</strong> รุ่นที่ ${toThaiDigits(s.generation)} • <strong>อายุขัย:</strong> ${toThaiDigits(s.ageYears)} ปี ${toThaiDigits(s.ageMonths)} เดือน</div>
+        <div><strong>บรรดาศักดิ์และศักดินาสูงสุด:</strong> ${rankObj.title} (ศักดินา ${toThaiDigits(s.sakdina)} ไร่)</div>
+        <div><strong>ทรัพย์สินคงเหลือ:</strong> ${toThaiDigits(s.wealth)} เบี้ย • <strong>สถานการณ์สุ่มที่ไม่ซ้ำที่เผชิญ:</strong> ${toThaiDigits(s.usedEventIds.size)} ครั้ง</div>
+      `;
+
+      const livingChildren = s.children.filter((c) => c.alive);
+      const heirBox = document.getElementById('heirSelectionBox');
+      if (livingChildren.length > 0) {
+        const netEstate = Math.max(0, Math.floor(s.wealth * 0.85));
+        heirBox.innerHTML = `
+          <div class="text-xs font-bold text-warm-sage">ระบบสืบตระกูล: เลือกเล่นต่อเป็นบุตรธิดา (รับมรดกสุทธิ ${toThaiDigits(netEstate)} เบี้ย)</div>
+          <div class="space-y-1.5">
+            ${livingChildren
+              .map(
+                (ch) => `
+              <button
+                type="button"
+                data-inherit-id="${ch.id}"
+                class="w-full text-left px-3.5 py-2.5 rounded-2xl bg-warm-sageSoft hover:bg-[#d7e5dd] text-warm-ink border border-warm-sage/35 transition flex items-center justify-between cursor-pointer"
+              >
+                <span class="text-xs font-bold">${ch.name} (${ch.genderLabel})</span>
+                <span class="text-[11px] font-semibold text-warm-sage">สืบตระกูลต่อ →</span>
+              </button>
+            `
+              )
+              .join('')}
+          </div>
+        `;
+        heirBox.querySelectorAll('[data-inherit-id]').forEach((btn) => {
+          btn.addEventListener('click', () => inheritAsChild(btn.getAttribute('data-inherit-id')));
+        });
+      } else {
+        heirBox.innerHTML = `
+          <div class="cozy-inset rounded-2xl p-3 text-xs text-warm-sub">
+            ไม่มีทายาทที่ยังมีชีวิตสำหรับสืบตระกูลในชาตินี้ สามารถสุ่มกำเนิดชีวิตใหม่หรือโหลดบันทึกชะตาเดิมได้
+          </div>
+        `;
+      }
+
+      const modal = document.getElementById('deathModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeDeathModal() {
+      const modal = document.getElementById('deathModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    
+    // =========================================================================
+    // 10. การเรนเดอร์หน้าจอ (UI Rendering)
+    // =========================================================================
+    function renderTopCalendarAndSpeed() {
+      const s = gameState;
+      const season = getSeasonByMonth(s.month);
+      const lunar = computeThaiLunar(s.yearBE, s.month, s.day, s.totalDaysElapsed);
+
+      document.getElementById('eraBadge').textContent = getEraLabel(s.yearBE);
+      document.getElementById('solarDateDisplay').textContent = formatSolarDate(s);
+      document.getElementById('weekdayDisplay').textContent = getWeekdayName(s.totalDaysElapsed);
+      document.getElementById('lunarDateDisplay').textContent = lunar.formattedText;
+
+      const yearQuota = s.currentEventYear === s.yearBE ? s.eventsThisYear : 0;
+      document.getElementById('yearlyEventQuotaDisplay').textContent =
+        `สถานการณ์สุ่มปีนี้: ${toThaiDigits(yearQuota)} / ๓ ครั้ง (ไม่ซ้ำ ${toThaiDigits(s.usedEventIds.size)} ครั้ง)`;
+
+      document.getElementById('seasonNameDisplay').textContent = season.name;
+      document.getElementById('seasonEffectDisplay').textContent = season.shortEffect;
+
+      document.querySelectorAll('.speed-btn').forEach((btn) => {
+        const sp = Number(btn.getAttribute('data-speed'));
+        const active = timeSpeed === sp;
+        btn.className = active
+          ? 'speed-btn px-3 py-2 rounded-xl text-xs font-semibold bg-warm-sage text-white border border-warm-sage transition cursor-pointer'
+          : 'speed-btn px-3 py-2 rounded-xl text-xs font-semibold cozy-inset hover:bg-warm-sand/70 text-warm-ink border border-warm-sand transition cursor-pointer';
+      });
+    }
+
+    function renderCharacterCard() {
+      const s = gameState;
+      const rankObj = getCurrentRankObj(s);
+      const dept = getDepartmentById(s.departmentId);
+
+      document.getElementById('generationBadge').textContent = `รุ่นที่ ${toThaiDigits(s.generation)}`;
+      document.getElementById('classBadge').textContent = s.origin.classLabel;
+      document.getElementById('charNameDisplay').textContent = `${s.name} (${s.genderLabel})`;
+      document.getElementById('charMetaDisplay').textContent = `พำนัก ณ ${s.district}`;
+
+      document.getElementById('ageDisplay').textContent = `${toThaiDigits(s.ageYears)} ปี`;
+      document.getElementById('ageSubDisplay').textContent =
+        `${toThaiDigits(s.ageMonths)} เดือน ${toThaiDigits(s.ageDays)} วัน`;
+
+      document.getElementById('wealthDisplay').textContent = `${toThaiDigits(s.wealth)} เบี้ย`;
+      document.getElementById('wealthEquivDisplay').textContent =
+        s.wealth === 0 ? 'เริ่มต้นที่ ๐ เบี้ย' : `เบี้ยประจำปี +${toThaiDigits(rankObj.stipend)} เบี้ย`;
+
+      document.getElementById('rankDisplay').textContent = rankObj.title;
+      document.getElementById('sakdinaDisplay').textContent = `ศักดินา ${toThaiDigits(s.sakdina)} ไร่`;
+
+      document.getElementById('deptStandingBadge').textContent =
+        `ความดีความชอบ ${toThaiDigits(s.bureaucracyMerit)}`;
+
+      if (dept) {
+        const chiefPerson = s.knownPeople.find((p) => p.isChief && p.deptId === dept.id);
+        document.getElementById('deptNameDisplay').textContent = dept.name;
+        document.getElementById('chiefRelationDisplay').textContent = chiefPerson
+          ? `เจ้ากรม: ${chiefPerson.name} • สายสัมพันธ์ ${chiefPerson.relation >= 0 ? '+' : ''}${toThaiDigits(chiefPerson.relation)}`
+          : `เจ้ากรม: ${dept.chiefName} (${dept.chiefTitle})`;
+      } else {
+        document.getElementById('deptNameDisplay').textContent = 'ยังมิได้สังกัดกรมกอง';
+        document.getElementById('chiefRelationDisplay').textContent =
+          'สามารถเข้าสังกัดกรมกองหรือเลือกวิถีชีวิตเมื่ออายุ ๑๕ ปีขึ้นไป';
+      }
+
+      const statRows = [
+        { key: 'health', label: 'สุขภาพกาย', barClass: 'bg-warm-sage' },
+        { key: 'spirit', label: 'จิตใจและธรรมะ', barClass: 'bg-warm-slate' },
+        { key: 'wit', label: 'สติปัญญาและสรรพวิชา', barClass: 'bg-warm-gold' },
+        { key: 'charm', label: 'เสน่ห์และบารมี', barClass: 'bg-warm-rose' },
+      ];
+
+      document.getElementById('statsContainer').innerHTML = statRows
+        .map((st) => {
+          const val = Math.round(s.stats[st.key]);
+          return `
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-medium text-warm-ink">${st.label}</span>
+                <span class="font-semibold text-warm-sub">${toThaiDigits(val)} / ๑๐๐</span>
+              </div>
+              <div class="h-2 rounded-full bg-warm-tint overflow-hidden">
+                <div class="h-full rounded-full ${st.barClass} transition-all duration-300" style="width:${val}%"></div>
+              </div>
+            </div>
+          `;
+        })
+        .join('');
+
+      const badges = [
+        ...s.traits.map(
+          (t) => `<span class="px-2.5 py-1 rounded-xl bg-warm-sageSoft text-warm-sage font-medium">${t}</span>`
+        ),
+        ...s.inventory.map(
+          (item) => `<span class="px-2.5 py-1 rounded-xl bg-warm-goldSoft text-warm-ink font-medium">${item}</span>`
+        ),
+      ];
+      document.getElementById('traitsInventoryBox').innerHTML =
+        badges.join('') || '<span class="text-warm-sub">ยังไม่มีสิ่งของพกพา</span>';
+    }
+
+    function renderParentsCard() {
+      const s = gameState;
+      document.getElementById('originQuarterBadge').textContent = s.district;
+      document.getElementById('parentsBox').innerHTML = `
+        <div class="cozy-inset rounded-2xl p-3 space-y-1">
+          <div class="font-bold text-warm-ink">บิดา: ${s.parentsInfo.fatherName}</div>
+          <div class="text-[11px] text-warm-sub">${s.parentsInfo.fatherRole}</div>
+        </div>
+        <div class="cozy-inset rounded-2xl p-3 space-y-1">
+          <div class="font-bold text-warm-ink">มารดา: ${s.parentsInfo.motherName}</div>
+          <div class="text-[11px] text-warm-sub">${s.parentsInfo.motherRole}</div>
+        </div>
+        <div class="text-[11px] text-warm-sub leading-relaxed px-1">
+          ${s.parentsInfo.originSummary}
+        </div>
+      `;
+    }
+
+    function renderSituationAndActivities() {
+      const s = gameState;
+      const sitBox = document.getElementById('situationBanner');
+      const tagEl = document.getElementById('situationTag');
+      const counterEl = document.getElementById('situationCounterBadge');
+      const titleEl = document.getElementById('situationTitle');
+      const descEl = document.getElementById('situationDesc');
+      const actionsBox = document.getElementById('situationActionsBox');
+
+      counterEl.textContent = `เกิดแล้วปีนี้ ${toThaiDigits(s.eventsThisYear)}/๓ • ไม่ซ้ำตลอดชีวิต`;
+
+      if (s.activeSituation) {
+        const ev = s.activeSituation;
+        sitBox.className = 'cozy-card rounded-3xl p-4 sm:p-5 border-2 border-warm-rose/60 space-y-3 bg-[#FFFDF9]';
+        tagEl.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-warm-roseSoft text-warm-rose';
+        tagEl.textContent = `สถานการณ์สุ่ม • ${ev.tag}`;
+        titleEl.textContent = ev.title;
+        descEl.textContent = ev.desc;
+        actionsBox.innerHTML = ev.choices
+          .map(
+            (ch, idx) => `
+          <button
+            type="button"
+            data-choice-idx="${idx}"
+            class="w-full text-left p-3 rounded-2xl cozy-inset hover:bg-warm-goldSoft/70 border border-warm-sand transition flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 cursor-pointer"
+          >
+            <span class="text-xs sm:text-sm font-bold text-warm-ink">${ch.label}</span>
+            <span class="text-[11px] font-semibold text-warm-slate">${ch.preview}</span>
+          </button>
+        `
+          )
+          .join('');
+        actionsBox.querySelectorAll('[data-choice-idx]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            resolveSituationChoice(Number(btn.getAttribute('data-choice-idx')));
+          });
+        });
+      } else if (s.ageYears < 3) {
+        sitBox.className = 'cozy-card rounded-3xl p-4 sm:p-5 border-2 border-warm-gold/50 space-y-2.5';
+        tagEl.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-warm-goldSoft text-warm-gold';
+        tagEl.textContent = 'ปฐมวัย (อายุต่ำกว่า ๓ ขวบ)';
+        titleEl.textContent = `${s.name} ยังเยาว์วัยนัก (อายุ ${toThaiDigits(s.ageYears)} ปี ${toThaiDigits(s.ageMonths)} เดือน)`;
+        descEl.textContent =
+          'เมื่ออายุยังไม่ถึง ๓ ขวบ ยังไม่สามารถเลือกกิจกรรมอิสระได้เอง เวลาจะเดินไปตามปกติและเปิดให้ตอบเฉพาะเมื่อเกิดสถานการณ์สุ่มขึ้นเท่านั้น';
+        actionsBox.innerHTML = '';
+      } else {
+        sitBox.className = 'cozy-card rounded-3xl p-4 sm:p-5 border border-warm-sand space-y-2';
+        tagEl.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-warm-sageSoft text-warm-sage';
+        tagEl.textContent = 'ดำเนินชีวิตตามวิถีอยุธยา';
+        titleEl.textContent = 'ไม่มีสถานการณ์เร่งด่วนเฉพาะหน้า';
+        descEl.textContent =
+          'สามารถปล่อยเวลาเดินไปตามธรรมชาติ หรือเลือกดำเนินกิจวัตรตามหมวดด้านล่างได้ตามต้องการ';
+        actionsBox.innerHTML = '';
+      }
+
+      // แท็บหมวดกิจกรรม
+      const tabsEl = document.getElementById('categoryTabs');
+      tabsEl.innerHTML = ACTIVITY_CATEGORIES.map((cat) => {
+        const active = activeCategory === cat.id;
+        return `
+          <button
+            type="button"
+            data-cat="${cat.id}"
+            class="px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer ${
+              active
+                ? 'bg-warm-sage text-white'
+                : 'cozy-inset hover:bg-warm-sand/70 text-warm-ink'
+            }"
+          >
+            ${cat.label}
+          </button>
+        `;
+      }).join('');
+      tabsEl.querySelectorAll('[data-cat]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          activeCategory = btn.getAttribute('data-cat');
+          SoundEngine.softClick();
+          renderSituationAndActivities();
+        });
+      });
+
+      const unlocked = s.ageYears >= 3 && s.alive;
+      document.getElementById('activityLockHint').textContent = unlocked
+        ? 'เลือกกิจวัตรเพื่อพัฒนาทักษะ หารายได้ หรือสร้างความดีความชอบ'
+        : 'ล็อกกิจกรรมอิสระจนกว่าจะมีอายุครบ ๓ ขวบบริบูรณ์';
+
+      const cdBadge = document.getElementById('cooldownBadge');
+      if (!unlocked) {
+        cdBadge.textContent = 'ล็อก (อายุ < ๓ ขวบ)';
+        cdBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-semibold bg-warm-goldSoft text-warm-gold';
+      } else if (s.cooldownDays > 0) {
+        cdBadge.textContent = `พักกิจวัตรอีก ${toThaiDigits(s.cooldownDays)} วัน`;
+        cdBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-semibold bg-warm-slateSoft text-warm-slate';
+      } else {
+        cdBadge.textContent = 'พร้อมดำเนินกิจ';
+        cdBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-semibold bg-warm-sageSoft text-warm-sage';
+      }
+
+      const listEl = document.getElementById('activitiesList');
+      const items = ACTIVITIES.filter((a) => a.cat === activeCategory);
+      listEl.innerHTML = items
+        .map((act) => {
+          const ageOk = s.ageYears >= act.minAge;
+          const canClick = unlocked && ageOk && s.cooldownDays === 0 && !s.activeSituation;
+          return `
+            <div class="cozy-inset rounded-2xl p-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+              <div class="space-y-0.5">
+                <div class="flex flex-wrap items-center gap-1.5">
+                  <span class="text-xs sm:text-sm font-bold text-warm-ink">${act.title}</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-warm-card text-warm-sub">
+                    อายุ ${toThaiDigits(act.minAge)}+ ปี
+                  </span>
+                </div>
+                <div class="text-xs text-warm-sub">${act.desc}</div>
+                <div class="text-[11px] font-semibold text-warm-sage">${act.effectHint}</div>
+              </div>
+              <button
+                type="button"
+                data-act-id="${act.id}"
+                ${canClick ? '' : 'disabled'}
+                class="px-3.5 py-2 rounded-xl text-xs font-semibold shrink-0 transition ${
+                  canClick
+                    ? 'bg-warm-sage hover:bg-[#416454] text-white cursor-pointer'
+                    : 'bg-warm-sand/70 text-warm-sub/70 cursor-not-allowed'
+                }"
+              >
+                ${!ageOk ? `ต้องอายุ ${toThaiDigits(act.minAge)} ปี` : 'ทำกิจนี้'}
+              </button>
+            </div>
+          `;
+        })
+        .join('');
+
+      listEl.querySelectorAll('[data-act-id]').forEach((btn) => {
+        btn.addEventListener('click', () => runActivity(btn.getAttribute('data-act-id')));
+      });
+    }
+
+    function renderChronicle() {
+      const s = gameState;
+      document.querySelectorAll('.log-filter-btn').forEach((btn) => {
+        const f = btn.getAttribute('data-log-filter');
+        btn.className =
+          logFilter === f
+            ? 'log-filter-btn px-2.5 py-1 rounded-full text-[11px] font-semibold bg-warm-slate text-white cursor-pointer'
+            : 'log-filter-btn px-2.5 py-1 rounded-full text-[11px] font-semibold cozy-inset text-warm-sub hover:text-warm-ink cursor-pointer';
+      });
+
+      const filtered = s.chronicle.filter((item) => {
+        if (logFilter === 'all') return true;
+        return item.kind === logFilter;
+      });
+
+      const box = document.getElementById('chronicleList');
+      if (!filtered.length) {
+        box.innerHTML = '<div class="text-warm-sub py-4 text-center">ยังไม่มีบันทึกในหมวดนี้</div>';
+        return;
+      }
+
+      box.innerHTML = filtered
+        .slice(0, 60)
+        .map((entry) => {
+          const badge =
+            entry.kind === 'milestone'
+              ? 'bg-warm-goldSoft text-warm-gold'
+              : entry.kind === 'event'
+              ? 'bg-warm-roseSoft text-warm-rose'
+              : 'bg-warm-sageSoft text-warm-sage';
+          return `
+            <div class="cozy-inset rounded-2xl p-3 space-y-1">
+              <div class="flex flex-wrap items-center justify-between gap-1">
+                <span class="font-bold text-warm-ink">${entry.title}</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${badge}">
+                  ${entry.dateText} • ${entry.ageText}
+                </span>
+              </div>
+              <div class="text-warm-sub leading-relaxed">${entry.detail}</div>
+            </div>
+          `;
+        })
+        .join('');
+    }
+
+    function renderKnownPeopleAndFamily() {
+      const s = gameState;
+      document.getElementById('knownCountBadge').textContent = `${toThaiDigits(s.knownPeople.length)} คนที่รู้จัก`;
+
+      const peopleBox = document.getElementById('knownPeopleList');
+      if (!s.knownPeople.length) {
+        peopleBox.innerHTML = '<div class="text-warm-sub text-xs">ยังไม่มีคนรู้จักเพิ่มเติม</div>';
+      } else {
+        peopleBox.innerHTML = s.knownPeople
+          .map((p) => {
+            const relColor = p.relation >= 20 ? 'text-warm-sage' : p.relation <= -15 ? 'text-warm-rose' : 'text-warm-slate';
+            const sign = p.relation >= 0 ? '+' : '';
+            return `
+              <div class="cozy-inset rounded-2xl px-3 py-2 flex items-center justify-between gap-2">
+                <div class="min-w-0">
+                  <div class="font-bold text-warm-ink truncate">${p.name}</div>
+                  <div class="text-[11px] text-warm-sub truncate">${p.role}</div>
+                </div>
+                <span class="text-xs font-bold shrink-0 ${relColor}">${sign}${toThaiDigits(p.relation)}</span>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      document.getElementById('childrenCountBadge').textContent = `บุตร ${toThaiDigits(s.children.length)} คน`;
+      const spouse = s.knownPeople.find((p) => p.id === s.spouseId);
+      const famBox = document.getElementById('familyLineageBox');
+      const spouseHtml = spouse
+        ? `<div class="cozy-inset rounded-2xl p-2.5"><span class="font-semibold text-warm-ink">คู่สมรส:</span> ${spouse.name}</div>`
+        : `<div class="cozy-inset rounded-2xl p-2.5 text-warm-sub">สถานะ: ยังมิได้สมรส (สมรสได้เมื่ออายุ ๑๗ ปีขึ้นไป)</div>`;
+
+      const childrenHtml = s.children.length
+        ? s.children
+            .map(
+              (c) => `
+            <div class="cozy-inset rounded-2xl px-3 py-2 flex items-center justify-between">
+              <span class="font-semibold text-warm-ink">${c.name}</span>
+              <span class="text-[11px] text-warm-sage">${c.genderLabel} • เกิด พ.ศ. ${toThaiDigits(c.birthYearBE)}</span>
+            </div>
+          `
+            )
+            .join('')
+        : '';
+
+      famBox.innerHTML = spouseHtml + childrenHtml;
+    }
+
+    function renderDepartmentsDirectory() {
+      const s = gameState;
+      document.getElementById('departmentsList').innerHTML = DEPARTMENTS.map((d) => {
+        const isCurrent = s.departmentId === d.id;
+        return `
+          <div class="rounded-2xl p-3 border ${
+            isCurrent
+              ? 'bg-warm-sageSoft/70 border-warm-sage/50'
+              : 'cozy-inset border-warm-sand'
+          } space-y-1">
+            <div class="flex items-center justify-between gap-1">
+              <span class="font-bold text-warm-ink">${d.name}</span>
+              ${
+                isCurrent
+                  ? '<span class="text-[10px] px-2 py-0.5 rounded-full bg-warm-sage text-white font-semibold">สังกัดอยู่</span>'
+                  : ''
+              }
+            </div>
+            <div class="text-[11px] font-semibold text-warm-slate">เจ้ากรม: ${d.chiefName} (${d.chiefTitle})</div>
+            <div class="text-[11px] text-warm-sub leading-snug">${d.desc}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderAll() {
+      if (!gameState) return;
+      renderTopCalendarAndSpeed();
+      renderCharacterCard();
+      renderParentsCard();
+      renderSituationAndActivities();
+      renderChronicle();
+      renderKnownPeopleAndFamily();
+      renderDepartmentsDirectory();
+                                                  }
+    
+    // =========================================================================
+    // 11. ลูปเวลา (๑ วันต่อ ๑ วินาทีที่ ×๑) และการผูกปุ่มควบคุมทั้งหมด
+    // =========================================================================
+    function gameLoop(now) {
+      if (!lastFrameTime) lastFrameTime = now;
+      const dtSec = Math.min(0.5, (now - lastFrameTime) / 1000);
+      lastFrameTime = now;
+
+      if (gameState && gameState.alive && !gameState.activeSituation && timeSpeed > 0) {
+        tickAccumulator += dtSec * timeSpeed;
+        let stepped = false;
+        while (tickAccumulator >= 1 && gameState.alive && !gameState.activeSituation) {
+          tickAccumulator -= 1;
+          advanceOneDay();
+          stepped = true;
+        }
+        if (stepped) {
+          renderAll();
+        }
+      }
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    document.querySelectorAll('.speed-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (!gameState || !gameState.alive) return;
+        if (gameState.activeSituation) {
+          showToast('กรุณาตอบสถานการณ์สุ่มก่อนเดินเวลาต่อ', 'warn');
+          return;
+        }
+        timeSpeed = Number(btn.getAttribute('data-speed'));
+        tickAccumulator = 0;
+        SoundEngine.softClick();
+        renderTopCalendarAndSpeed();
+      });
+    });
+
+    document.getElementById('btnSkipLunarMonth').addEventListener('click', () => {
+      SoundEngine.softClick();
+      skipCurrentLunarMonth();
+    });
+
+    document.getElementById('btnSkipYear').addEventListener('click', () => {
+      SoundEngine.softClick();
+      skipCurrentYear();
+    });
+
+    document.getElementById('btnNewLife').addEventListener('click', () => {
+      openConfirm(
+        'สุ่มกำเนิดชีวิตใหม่',
+        'ต้องการเริ่มสุ่มชะตาชีวิตใหม่ตั้งแต่ต้น (อายุ ๐ ปี • ๐ เบี้ย) หรือไม่? หากยังไม่ได้บันทึกแนะนำให้บันทึกก่อน',
+        () => {
+          closeDeathModal();
+          createNewRandomLife(1, null);
+          showToast('สุ่มกำเนิดชีวิตใหม่แล้ว', 'good');
+        }
+      );
+    });
+
+    document.getElementById('btnSaveModal').addEventListener('click', () => {
+      SoundEngine.softClick();
+      openSaveModal();
+    });
+
+    document.getElementById('btnCloseSaveModal').addEventListener('click', () => {
+      closeSaveModal();
+    });
+
+    document.getElementById('btnExportJson').addEventListener('click', () => {
+      exportSaveJson();
+    });
+
+    document.getElementById('importJsonInput').addEventListener('change', (ev) => {
+      const file = ev.target?.files?.[0];
+      if (file) {
+        importSaveJsonFile(file);
+        ev.target.value = '';
+      }
+    });
+
+    document.getElementById('btnConfirmCancel').addEventListener('click', () => {
+      closeConfirm();
+    });
+
+    document.getElementById('btnConfirmOk').addEventListener('click', () => {
+      const fn = pendingConfirmFn;
+      closeConfirm();
+      if (typeof fn === 'function') fn();
+    });
+
+    document.getElementById('btnDeathOpenSave').addEventListener('click', () => {
+      closeDeathModal();
+      openSaveModal();
+    });
+
+    document.getElementById('btnDeathNewLife').addEventListener('click', () => {
+      closeDeathModal();
+      createNewRandomLife(1, null);
+      showToast('เริ่มต้นชีวิตใหม่แล้ว', 'good');
+    });
+
+    document.getElementById('btnSound').addEventListener('click', () => {
+      SoundEngine.enabled = !SoundEngine.enabled;
+      document.getElementById('btnSound').textContent = SoundEngine.enabled ? 'เสียง: เปิด' : 'เสียง: ปิด';
+      if (SoundEngine.enabled) SoundEngine.softClick();
+    });
+
+    document.querySelectorAll('.log-filter-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        logFilter = btn.getAttribute('data-log-filter');
+        renderChronicle();
+      });
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      createNewRandomLife(1, null);
+      lastFrameTime = performance.now();
+      requestAnimationFrame(gameLoop);
+    });
+  </script>
+</body>
+</html>
